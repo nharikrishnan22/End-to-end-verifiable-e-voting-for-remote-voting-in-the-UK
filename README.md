@@ -18,7 +18,6 @@ Example installation instructions for Ubuntu:
 ```
 sudo apt install sqlite3
 ```
-### Node.js
 ### [Yarn](https://classic.yarnpkg.com/en/)
 Example installation instructions for Debian/Ubuntu:
 ```
@@ -40,11 +39,12 @@ Install gems from Gemfile:
 ```
 bundle install
 ```
-You may need to edit the version of Ruby in your Gemfile. Execute soemthing like:
+You may need to edit the version of Ruby in your Gemfile. Execute something like:
 ```
 nano Gemfile
 ```
-### Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
+### Clean up database 
+Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
 ```
 rake db:reset
 ```
