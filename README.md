@@ -1,5 +1,9 @@
 # End to end verifiable e-voting for remote voting in the UK
 
+## Clone the repository
+git clone https://github.com/nharikrishnan22/End-to-end-verifiable-e-voting-for-remote-voting-in-the-UK.git
+cd End-to-end-verifiable-e-voting-for-remote-voting-in-the-UK
+
 ## Check your Ruby version
 ```
 ruby -v
