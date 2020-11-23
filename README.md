@@ -3,7 +3,7 @@
 ## Check your Ruby version
 ```
 ruby -v
-sudo apt-get install ruby-full
+```
 This project uses Ruby 2.7.
 
 ## Install Dependencies
