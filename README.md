@@ -12,25 +12,25 @@ This project uses Ruby 2.7.
 
 ## Install Dependencies
 * SQLite3
-Example installation instructions: On Ubuntu execute the following
+### Example installation instructions: On Ubuntu execute the following
 ```
 sudo apt install sqlite3
 ```
 * Node.js
 * [Yarn](https://classic.yarnpkg.com/en/)
-Example installation instructions: On Debian/Ubuntu execute the following
+### Example installation instructions: On Debian/Ubuntu execute the following
 ```
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update && sudo apt install yarn
 ```
 * Rails
-How to install rails on Ubuntu:
+### How to install rails on Ubuntu:
 ```
 sudo apt install ruby-railties
 ```
 * Bundler
-Use bundler to install Ruby gems
+### Use bundler to install Ruby gems
 Install bundler:
 ```
 gem install bundler
