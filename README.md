@@ -1,13 +1,40 @@
 # End to end verifiable e-voting for remote voting in the UK
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Check your Ruby version
+```
+ruby -v
+sudo apt-get install ruby-full
+This project uses Ruby 2.7.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+## Install Dependencies
+* SQLite3
+Example installation instructions: On Ubuntu execute the following
+```
+sudo apt install sqlite3
+```
+* Node.js
+* [Yarn](https://classic.yarnpkg.com/en/)
+Example installation instructions: On Debian/Ubuntu execute the following
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+```
+* Rails
+How to install rails on Ubuntu:
+```
+sudo apt install ruby-railties
+```
+* Bundler
+Use bundler to install Ruby gems
+Install bundler:
+```
+gem install bundler
+```
+Install gems:
+```
+bundle install
+```
 
 * Configuration
 
