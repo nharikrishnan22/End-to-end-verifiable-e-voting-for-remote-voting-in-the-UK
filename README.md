@@ -51,6 +51,6 @@ rake db:reset
 ```
 
 ## Acknowledgements
-This project would not have been possible without Professor Feng Hao's support.
+This project would not have been possible without Professor Feng Hao's guidance.
 
 The project implements the DRE-ip protocol which can be found here: [DRE-ip](https://eprint.iacr.org/2016/670.pdf)
