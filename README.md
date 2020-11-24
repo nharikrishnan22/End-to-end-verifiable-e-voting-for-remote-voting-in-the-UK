@@ -43,8 +43,14 @@ You may need to edit the version of Ruby in your Gemfile. Execute something like
 ```
 nano Gemfile
 ```
-### Clean up database 
+
+## Clean up database 
 Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
 ```
 rake db:reset
 ```
+
+## Acknowledgements
+This project would not have been possible without Professor Feng Hao's support.
+
+The project implements the DRE-ip protocol which can be found here: [DRE-ip](https://eprint.iacr.org/2016/670.pdf)
