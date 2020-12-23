@@ -6,18 +6,27 @@
 </p>
 
 <p>
-  <strong>Dateofbirth:</strong>
+  <strong>Date of birth:</strong>
   <%= @user.dateofbirth %>
 </p>
 
 <p>
-  <strong>Firstname:</strong>
+  <strong>First name:</strong>
   <%= @user.firstname %>
 </p>
 
 <p>
-  <strong>Lastname:</strong>
+  <strong>Last name:</strong>
   <%= @user.lastname %>
+</p>
+
+<p>
+<% if @user.avatar.attached? %>
+  <strong>Avatar:</strong>
+  <div>
+    <%= image_tag @user.avatar %>
+  </div>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %>

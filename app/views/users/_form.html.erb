@@ -12,33 +12,38 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :email %>
+    <%= form.label :email, "Email" %>
     <%= form.text_field :email %>
   </div>
 
   <div class="field">
-    <%= form.label :dateofbirth %>
+    <%= form.label :dateofbirth, "Date of birth" %>
     <%= form.date_select :dateofbirth, {:start_year => 1900, :end_year => Date.today.year} %>
   </div>
 
   <div class="field">
-    <%= form.label :firstname %>
+    <%= form.label :firstname, "First name" %>
     <%= form.text_field :firstname %>
   </div>
 
   <div class="field">
-    <%= form.label :lastname %>
+    <%= form.label :lastname, "Last name" %>
     <%= form.text_field :lastname %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
+    <%= form.label :password, "Password" %>
     <%= form.password_field :password %>
   </div>
 
   <div class="field">
-    <%= form.label :password_confirmation %>
+    <%= form.label :password_confirmation, "Password confirmation" %>
     <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
   </div>
 
   <div class="actions">
