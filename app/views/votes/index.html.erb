@@ -16,6 +16,14 @@
   </thead>
 
   <tbody>
+    <% p = 11 %>
+    <% q = 5 %>
+    <% g = 7 %>
+    <% g_2 = 5 %>
+    <% total_votes = 0 %>
+    <% total_sum = 0 %>
+    <% big_ri_product = 1 %>
+    <% big_zi_product = 1 %>
     <% @votes.each do |vote| %>
       <tr>
         <td><%= vote.index %></td>
@@ -27,7 +35,17 @@
         <td><%= link_to 'Show', vote %></td>
         <td><%= link_to 'Edit', edit_vote_path(vote) %></td>
         <td><%= link_to 'Destroy', vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% total_sum += 3 %>
+        <% big_ri_product =  big_ri_product * vote.big_ri %>
+        <% big_zi_product =  big_zi_product * vote.big_zi %>
+        <% total_votes =  total_votes + vote.vote %>
+
       </tr>
+    <% end %>
+    <% if (((big_ri_product % p) == ((g_2 ** total_sum) % p)) && ((big_zi_product % p) == (((g ** total_sum) % p) * ((g ** total_votes) % p)) % p)) %>  
+      <%= 'Tally verification successful' %>
+    <% else %> 
+      <%= 'Tally verification unsuccessful' %>
     <% end %>
   </tbody>
 </table>
