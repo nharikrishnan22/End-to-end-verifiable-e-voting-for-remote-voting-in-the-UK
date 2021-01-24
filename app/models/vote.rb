@@ -10,8 +10,8 @@ class Vote < ApplicationRecord
     g = 7
     p = 11
     q = 5
-    g_2 = 5 # second generator (g2 in DRE-ip paper), it's a global constant
-    ri = SecureRandom.random_number(1..q-1) # should be random, this simplifies stuff, will need to change later
+    g_2 = 5 # second generator (g2 in DRE-ip paper), should ideally be generated randomly
+    ri = SecureRandom.random_number(1..q-1)
     f = File.open("total_random", "r") # s in paper. file is created beforehand and is reset to 0 manually when vote is over, don't destroy votes or otherwise things will not work
     f2 = File.open("total_votes", "r") # t in paper. file is created beforehand and is reset to 0 manually when vote is over, don't destroy votes or otherwise things will not work
     current_random = f.read.to_i
