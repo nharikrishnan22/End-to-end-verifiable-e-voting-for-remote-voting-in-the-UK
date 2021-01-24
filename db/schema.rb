@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_201219) do
+ActiveRecord::Schema.define(version: 2021_01_24_003639) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 2021_01_22_201219) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer "index"
     t.integer "big_ri"
     t.integer "big_zi"
     t.boolean "pwf"
