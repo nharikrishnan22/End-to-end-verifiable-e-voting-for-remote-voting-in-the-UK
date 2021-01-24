@@ -2,7 +2,7 @@
 
 <p>
   <strong>Index:</strong>
-  <%= @vote.index %>
+  <%= @vote.id %>
 </p>
 
 <p>
@@ -30,5 +30,4 @@
   <%= @vote.user_id %>
 </p>
 
-<%= link_to 'Edit', edit_vote_path(@vote) %> |
 <%= link_to 'Back', votes_path %>

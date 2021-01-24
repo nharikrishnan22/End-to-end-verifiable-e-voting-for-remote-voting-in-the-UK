@@ -5,20 +5,29 @@
 
       <ul>
         <% vote.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <% if message == "User has already been taken" %>
+            <li><%= "You have already voted" %></li>
+          <%else %>
+            <li><%= message %></li>
+          <% end %>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :index %>
-    <%= form.number_field :index %>
+    <% if Vote.exists?(1) %>
+      <%= form.label :id %>
+      <%= form.text_field :id,value: Vote.maximum("id")+1, :readonly => true  %> 
+    <%else %>
+      <%= form.label :id %>
+      <%= form.text_field :id,value: 1, :readonly => true  %> 
+    <% end %>
   </div>
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+    <%= form.text_field :user_id,value: current_user.id, :readonly => true  %> 
   </div>
 
   <div class="field">
