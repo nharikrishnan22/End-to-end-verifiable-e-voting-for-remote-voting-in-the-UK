@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Votes</h1>
+<h1>Bulletin board</h1>
 
-<table style="width:700px">
+<table style="width:500px">
   <thead>
     <tr>
       <th>Index </th>
@@ -20,29 +20,29 @@
     <% q = 5 %>
     <% g = 7 %>
     <% g_2 = 5 %>
-    <% total_votes = 0 %>
-    <% total_sum = 0 %>
     <% big_ri_product = 1 %>
     <% big_zi_product = 1 %>
     <% @votes.each do |vote| %>
       <tr>
-        <td><%= vote.index %></td>
+        <td><%= vote.id %></td>
         <td><%= vote.big_ri %></td>
         <td><%= vote.big_zi %></td>
         <td><%= vote.pwf %></td>
         <td><%= vote.status %></td>
         <td><%= vote.user_id %></td>
         <td><%= link_to 'Show', vote %></td>
-        <td><%= link_to 'Edit', edit_vote_path(vote) %></td>
         <td><%= link_to 'Destroy', vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% total_sum += 3 %>
         <% big_ri_product =  big_ri_product * vote.big_ri %>
         <% big_zi_product =  big_zi_product * vote.big_zi %>
-        <% total_votes =  total_votes + vote.vote %>
-
       </tr>
     <% end %>
-    <% if (((big_ri_product % p) == ((g_2 ** total_sum) % p)) && ((big_zi_product % p) == (((g ** total_sum) % p) * ((g ** total_votes) % p)) % p)) %>  
+    <% f = File.open("total_random", "r") %>
+    <% f2 = File.open("total_votes", "r") %>
+    <% s = f.read.to_i %>
+    <% t = f2.read.to_i %>
+    <% f.close() %>
+    <% f2.close() %>
+    <% if (((big_ri_product % p) == ((g_2 ** s) % p)) && ((big_zi_product % p) == (((g ** s) % p) * ((g ** t) % p)) % p)) %>  
       <%= 'Tally verification successful' %>
     <% else %> 
       <%= 'Tally verification unsuccessful' %>
@@ -51,5 +51,8 @@
 </table>
 
 <br>
-
-<%= link_to 'New Vote', new_vote_path %>
+<p><%= 'g is ' + g.to_s %></p>
+<p><%= 'g_2 is ' + g_2.to_s %></p>
+<p><%= 'Total sum of votes is (not count of individuals) ' + t.to_s %></p>
+<p><%= 'Total of random numbers is ' + s.to_s %></p>
+<p><%= link_to 'New Vote', new_vote_path %></p>
