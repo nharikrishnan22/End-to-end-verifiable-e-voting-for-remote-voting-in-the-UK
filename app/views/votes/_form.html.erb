@@ -35,6 +35,12 @@
     <%= form.number_field :vote %>
   </div>
 
+  <!-- Options include audited and confirmed-->
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
