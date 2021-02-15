@@ -1,33 +1,50 @@
+<h1>Receipt</h1>
 <p id="notice"><%= notice %></p>
-
-<p>
+<% if @vote.user_id == current_user.id %>  
+  <p>
   <strong>Index:</strong>
   <%= @vote.id %>
-</p>
+  </p>
 
-<p>
+  <p>
   <strong>Big ri:</strong>
   <%= @vote.big_ri %>
-</p>
+  </p>
 
-<p>
+  <p>
   <strong>Big zi:</strong>
   <%= @vote.big_zi %>
-</p>
+  </p>
 
-<p>
+  <p>
   <strong>Pwf:</strong>
   <%= @vote.pwf %>
-</p>
+  </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @vote.status %>
-</p>
+  <% if @vote.status == "audited" %>  
+  <p>
+    <strong>Vote:</strong>
+    <%= @vote.vote %>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @vote.user_id %>
-</p>
+  <p>
+    <strong>ri:</strong>
+    <%= @vote.ri %>
+  </p>
+  <% end %>
 
-<%= link_to 'Back', votes_path %>
+  <% if @vote.status == "confirmed" %>  
+  <p>
+    <strong>Status:</strong>
+    <%= @vote.status %>
+  </p>
+  <% end %>
+<% else %>  
+  <%= 'This is not your receipt' %>
+<% end %>
+
+<p><%= 'Note down your vote id so you can edit it afterwards (look at id part of address: http://localhost:3000/votes/id)' %></p>
+<p><td><%= link_to 'Edit', edit_vote_path(@vote) %></p>
+<p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+
+<%= link_to 'Bulletin Board', votes_path %>
