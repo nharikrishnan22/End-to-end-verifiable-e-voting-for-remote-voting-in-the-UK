@@ -10,7 +10,8 @@
       <th>Big zi </th>
       <th>Pwf </th>
       <th>Status </th>
-      <th>User </th>
+      <th>Vote </th>
+      <th>ri </th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,17 +25,21 @@
     <% big_zi_product = 1 %>
     <% @votes.each do |vote| %>
       <tr>
+      <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
         <td><%= vote.id %></td>
         <td><%= vote.big_ri %></td>
         <td><%= vote.big_zi %></td>
         <td><%= vote.pwf %></td>
         <td><%= vote.status %></td>
-        <td><%= vote.user_id %></td>
-        <td><%= link_to 'Show', vote %></td>
-        <td><%= link_to 'Destroy', vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% big_ri_product =  big_ri_product * vote.big_ri %>
-        <% big_zi_product =  big_zi_product * vote.big_zi %>
+        <td><%= vote.vote %></td>
+        <td><%= vote.ri %></td>
+        <td><%= link_to 'Receipt', vote %></td>
+        <% if vote.status == "confirmed" %>
+          <% big_ri_product =  big_ri_product * vote.big_ri %>
+          <% big_zi_product =  big_zi_product * vote.big_zi %>
+        <% end %>
       </tr>
+      <% end %>
     <% end %>
     <% f = File.open("total_random", "r") %>
     <% f2 = File.open("total_votes", "r") %>
@@ -51,8 +56,10 @@
 </table>
 
 <br>
+<p><%= 'p is ' + p.to_s %></p>
 <p><%= 'g is ' + g.to_s %></p>
 <p><%= 'g_2 is ' + g_2.to_s %></p>
 <p><%= 'Total sum of votes is (not count of individuals) ' + t.to_s %></p>
 <p><%= 'Total of random numbers is ' + s.to_s %></p>
+<p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
 <p><%= link_to 'New Vote', new_vote_path %></p>
