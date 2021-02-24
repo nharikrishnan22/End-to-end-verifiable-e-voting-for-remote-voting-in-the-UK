@@ -7,10 +7,10 @@ class Vote < ApplicationRecord
   validates :user_id, uniqueness: true
 
   def finish_vote_create
-    g = 7
-    p = 11
-    q = 5
-    g_2 = 5 # second generator (g2 in DRE-ip paper), should ideally be generated randomly
+    g = 2130 
+    p = 17278829
+    q = 32479
+    g_2 = 4536900 # second generator (g2 in DRE-ip paper), should ideally be generated randomly
     ri = SecureRandom.random_number(1..q-1)
     f = File.open("total_random", "r") # s in paper. file is created beforehand and is reset to 0 manually when vote is over, don't destroy votes or otherwise things will not work
     f2 = File.open("total_votes", "r") # t in paper. file is created beforehand and is reset to 0 manually when vote is over, don't destroy votes or otherwise things will not work
@@ -39,10 +39,10 @@ class Vote < ApplicationRecord
   end
 
   def finish_vote_update
-    g = 7
-    p = 11
-    q = 5
-    g_2 = 5 # second generator (g2 in DRE-ip paper), should ideally be generated randomly
+    g = 2130 
+    p = 17278829
+    q = 32479
+    g_2 = 4536900 # second generator (g2 in DRE-ip paper), should ideally be generated randomly
     f = File.open("total_random", "r") # s in paper. file is created beforehand and is reset to 0 manually when vote is over, don't destroy votes or otherwise things will not work
     f2 = File.open("total_votes", "r") # t in paper. file is created beforehand and is reset to 0 manually when vote is over, don't destroy votes or otherwise things will not work
     self.big_ri = (g_2 ** self.ri) % p
