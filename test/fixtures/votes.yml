@@ -5,8 +5,8 @@ one:
   big_ri: 1
   big_zi: 1
   pwf: false
-  status: MyString
-  user: one
+  status: "confirmed"
+  user: "one"
 
 two:
   id: 2
@@ -14,4 +14,4 @@ two:
   big_zi: 1
   pwf: false
   status: MyString
-  user: two
+  user: "two"

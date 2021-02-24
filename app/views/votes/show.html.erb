@@ -39,12 +39,11 @@
     <%= @vote.status %>
   </p>
   <% end %>
+  <p><%= 'Note down your vote id so you can edit it afterwards (look at id part of address: http://localhost:3000/votes/id)' %></p>
+  <p><td><%= link_to 'Edit', edit_vote_path(@vote) %></p>
+  <p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' } %></p>
 <% else %>  
   <%= 'This is not your receipt' %>
 <% end %>
 
-<p><%= 'Note down your vote id so you can edit it afterwards (look at id part of address: http://localhost:3000/votes/id)' %></p>
-<p><td><%= link_to 'Edit', edit_vote_path(@vote) %></p>
-<p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-
-<%= link_to 'Bulletin Board', votes_path %>
+<p><%= link_to 'Bulletin Board', votes_path %></p>

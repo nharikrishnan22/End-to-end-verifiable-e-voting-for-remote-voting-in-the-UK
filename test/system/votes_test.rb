@@ -20,6 +20,7 @@ class VotesTest < ApplicationSystemTestCase
     check "Pwf" if @vote.pwf
     fill_in "Status", with: @vote.status
     fill_in "User", with: @vote.user_id
+    fill_in "User", with: @vote.
     click_on "Create Vote"
 
     assert_text "Vote was successfully created"
