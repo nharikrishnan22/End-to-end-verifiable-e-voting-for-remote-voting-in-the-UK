@@ -2,7 +2,7 @@
 
 <h1>Bulletin board</h1>
 
-<table style="width:500px">
+<table style="width:700px">
   <thead>
     <tr>
       <th>Index </th>
@@ -17,10 +17,11 @@
   </thead>
 
   <tbody>
-    <% p = 11 %>
-    <% q = 5 %>
-    <% g = 7 %>
-    <% g_2 = 5 %>
+    <% p = 17278829
+    %>
+    <% q = 32479 %>
+    <% g = 2130 %>
+    <% g_2 = 4536900 %>
     <% big_ri_product = 1 %>
     <% big_zi_product = 1 %>
     <% @votes.each do |vote| %>
@@ -62,4 +63,6 @@
 <p><%= 'Total sum of votes is (not count of individuals) ' + t.to_s %></p>
 <p><%= 'Total of random numbers is ' + s.to_s %></p>
 <p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
-<p><%= link_to 'New Vote', new_vote_path %></p>
+
+<p><%= link_to 'New Vote', new_vote_path, data: {turbolinks: "false"} %></p>
+ 
