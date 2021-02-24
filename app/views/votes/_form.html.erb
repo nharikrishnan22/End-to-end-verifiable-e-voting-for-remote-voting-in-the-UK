@@ -40,6 +40,16 @@
     <%= form.label :status %>
     <%= form.text_field :status %>
   </div>
+  
+  
+  <div class="field">
+    <p>Signature</p>
+    <canvas id="pad" class="signature-pad" width=300 height=200 style="border:1px solid #000000"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script>
+    var signaturePad = new SignaturePad(document.getElementById('pad'),{minWidth: 1, maxWidth: 1});
+    </script>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
