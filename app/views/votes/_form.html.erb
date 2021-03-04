@@ -1,49 +1,47 @@
 <%= form_with(model: vote, local: true) do |form| %>
   <% if vote.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
+    <div class="notification is-danger">
+      <div id="error_explanation">
+        <h2 class="subtitle"><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
 
-      <ul>
-        <% vote.errors.full_messages.each do |message| %>
-          <% if message == "User has already been taken" %>
-            <li><%= "You have already voted" %></li>
-          <%else %>
+        <ul>
+          <% vote.errors.full_messages.each do |message| %>
             <li><%= message %></li>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <div class="field">
     <% if Vote.exists?(1) %>
-      <%= form.label :id %>
-      <%= form.text_field :id,value: Vote.maximum("id")+1, :readonly => true  %> 
+      <%= form.label :id, class:"label" %>
+      <%= form.text_field :id,value: Vote.maximum("id")+1, :readonly => true, class:"input" %> 
     <%else %>
-      <%= form.label :id %>
-      <%= form.text_field :id,value: 1, :readonly => true  %> 
+      <p class="label">ID<p>
+      <%= form.text_field :id,value: 1, :readonly => true, class:"input" %> 
     <% end %>
   </div>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id,value: current_user.id, :readonly => true  %> 
+    <%= form.label :user_id, class:"label" %>
+    <%= form.text_field :user_id,value: current_user.id, :readonly => true, class:"input" %> 
   </div>
 
   <div class="field">
-    <%= form.label :vote %>
-    <%= form.number_field :vote %>
+    <%= form.label :vote, class:"label" %>
+    <%= form.number_field :vote, class:"input", placeholder:"Vote" %>
   </div>
 
   <!-- Options include audited and confirmed-->
   <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.label :status, class:"label" %>
+    <%= form.text_field :status, class:"input", placeholder:"Status"  %>
   </div>
   
   
   <div class="field">
-    <p>Signature</p>
+    <p class="label">Signature</p>
     <canvas id="pad" class="signature-pad" width=300 height=200 style="border:1px solid #000000"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
     <script>
@@ -52,6 +50,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit("Submit", class: 'button is-info' ) %>
   </div>
 <% end %>

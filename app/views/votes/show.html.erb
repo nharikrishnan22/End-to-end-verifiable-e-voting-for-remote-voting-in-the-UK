@@ -1,5 +1,9 @@
-<h1>Receipt</h1>
-<p id="notice"><%= notice %></p>
+<h1 class="title">Receipt</h1>
+<% if notice.present? %>
+  <div class="notification is-success">
+    <%= notice %>
+  </div>
+<% end %>
 <% if @vote.user_id == current_user.id %>  
   <p>
   <strong>Index:</strong>
@@ -40,10 +44,10 @@
   </p>
   <% end %>
   <p><%= 'Note down your vote id so you can edit it afterwards (look at id part of address: http://localhost:3000/votes/id)' %></p>
-  <p><td><%= link_to 'Edit', edit_vote_path(@vote) %></p>
-  <p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  <p><td><%= link_to 'Edit', edit_vote_path(@vote),class:'button is-info' %></p>
+  <p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' }, class:'button is-info' %></p>
 <% else %>  
   <%= 'This is not your receipt' %>
 <% end %>
 
-<p><%= link_to 'Bulletin Board', votes_path %></p>
+<p><%= link_to 'Bulletin Board', votes_path,class:'button is-info' %></p>

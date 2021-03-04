@@ -1,52 +1,55 @@
 <%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <div class="notification is-danger">
+      <div id="error_explanation">
+        <h2 class="subtitle"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-        <% user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
+
   <div class="field">
-    <%= form.label :email, "Email" %>
-    <%= form.text_field :email %>
+    <%= form.label :email, "Email", class:"label" %>
+    <%= form.text_field :email, class:"input", placeholder:"Email" %>
   </div>
 
   <div class="field">
-    <%= form.label :dateofbirth, "Date of birth" %>
-    <%= form.date_select :dateofbirth, {:start_year => 1900, :end_year => Date.today.year} %>
+    <%= form.label :dateofbirth, "Date of birth", class:"label" %>
+    <%= form.date_select :dateofbirth, {:start_year => 1900, :end_year => Date.today.year}, type:"date" %>
   </div>
 
   <div class="field">
-    <%= form.label :firstname, "First name" %>
-    <%= form.text_field :firstname %>
+    <%= form.label :firstname, "First name", class:"label" %>
+    <%= form.text_field :firstname, class:"input", placeholder:"First Name" %>
   </div>
 
   <div class="field">
-    <%= form.label :lastname, "Last name" %>
-    <%= form.text_field :lastname %>
+    <%= form.label :lastname, "Last name", class:"label" %>
+    <%= form.text_field :lastname, class:"input", placeholder:"Last Name" %>
   </div>
 
   <div class="field">
-    <%= form.label :password, "Password" %>
-    <%= form.password_field :password %>
+    <%= form.label :password, "Password", class:"label" %>
+    <%= form.password_field :password, class:"input", placeholder:"Password" %>
   </div>
 
   <div class="field">
-    <%= form.label :password_confirmation, "Password confirmation" %>
-    <%= form.password_field :password_confirmation %>
+    <%= form.label :password_confirmation, "Password confirmation", class:"label" %>
+    <%= form.password_field :password_confirmation, class:"input", placeholder:"Password Confirmation"  %>
   </div>
 
   <div class="field">
-    <%= form.label :avatar, "Signature" %>
+    <%= form.label :avatar, "Signature" , class:"label" %>
     <%= form.file_field :avatar %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit("Submit", class: 'button is-info' ) %>
   </div>
 <% end %>

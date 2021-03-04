@@ -1,4 +1,9 @@
-<p id="notice"><%= notice %></p>
+<h1 class="title">User Information</h1>
+<% if notice.present? %>
+  <div class="notification is-success">
+    <%= notice %>
+  </div>
+<% end %>
 
 <p>
   <strong>Email:</strong>
@@ -29,4 +34,4 @@
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %>
+<%= link_to 'Edit', edit_user_path(@user), class:'button is-info' %>
