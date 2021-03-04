@@ -1,17 +1,21 @@
 <%= form_with(model: vote, local: true) do |form| %>
   <% if vote.errors.any? %>
-    <div class="notification is-danger">
-      <div id="error_explanation">
-        <h2 class="subtitle"><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
+  <div class="notification is-danger">
+    <div id="error_explanation">
+    <h2 class="subtitle"><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
 
-        <ul>
-          <% vote.errors.full_messages.each do |message| %>
+      <ul>
+        <% vote.errors.full_messages.each do |message| %>
+          <% if message == "User has already been taken" %>
+            <li><%= "You have already voted" %></li>
+          <%else %>
             <li><%= message %></li>
           <% end %>
-        </ul>
-      </div>
+        <% end %>
+      </ul>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
   <div class="field">
     <% if Vote.exists?(1) %>
