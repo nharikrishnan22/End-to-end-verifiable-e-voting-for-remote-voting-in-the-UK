@@ -2,8 +2,8 @@
 class User < ApplicationRecord
   has_one :vote
   has_secure_password
-  has_one_attached :avatar
-  validates :avatar, presence: true
+  has_one_attached :signature
+  validates :signature, presence: true
   validates :email, presence: true, uniqueness: true # make sure that same email cannot be used twice
   validates :firstname, presence: true
   validates :lastname, presence: true
