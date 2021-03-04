@@ -55,3 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Used for hashing passwords
 gem "bcrypt", "~> 3.1"
+
+# Bulma CSS
+gem "bulma-rails", "~> 0.9.1"
