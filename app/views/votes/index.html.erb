@@ -57,5 +57,11 @@
 <p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
 <p><%= "Only the first 4 characters of the hash are displayed" %></p>
 
-<p><%= link_to 'New Vote', new_vote_path, data: {turbolinks: "false"}, class:'button is-info' %></p>
+<% vote_user_ids = Array.new %>
+<% @votes.each do |vote| %> 
+  <% vote_user_ids.push(vote.user_id) %>
+<% end %>
+<% if !vote_user_ids.include?(current_user.id) %>
+  <p><%= link_to 'New Vote', new_vote_path, data: {turbolinks: "false"}, class:'button is-info' %></p>
+<% end %>
  
