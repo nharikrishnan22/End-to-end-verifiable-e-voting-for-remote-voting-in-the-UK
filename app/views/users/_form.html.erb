@@ -13,10 +13,9 @@
     </div>
   <% end %>
 
-
   <div class="field">
     <%= form.label :email, "Email", class:"label" %>
-    <%= form.text_field :email, class:"input", placeholder:"Email" %>
+    <%= form.text_field :email, class:"input", type:"email", placeholder:"Email" %>
   </div>
 
   <div class="field">
@@ -45,8 +44,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :avatar, "Signature" , class:"label" %>
-    <%= form.file_field :avatar %>
+    <%= form.label :signature, "Signature" , class:"label" %>
+    <%= form.file_field :signature %>
   </div>
 
   <div class="actions">
