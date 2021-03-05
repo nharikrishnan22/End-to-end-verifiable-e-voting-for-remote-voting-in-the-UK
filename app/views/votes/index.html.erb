@@ -5,16 +5,16 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Hash </th>
+      <th>Status</th>
       <th>Vote </th>
       <th>ri </th>
-      <th>Hash </th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% p = 17278829
-    %>
+    <% p = 17278829 %>
     <% q = 32479 %>
     <% g = 2130 %>
     <% g_2 = 4536900 %>
@@ -23,9 +23,10 @@
     <% @votes.each do |vote| %>
       <tr>
       <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
+        <td><%= Digest::SHA256.hexdigest((vote.big_ri).to_s + (vote.big_zi).to_s + (vote.pwf).to_s + (vote.ri).to_s + (vote.vote).to_s).truncate(7) %></td>
+        <td><%= vote.status %></td>
         <td><%= vote.vote %></td>
         <td><%= vote.ri %></td>
-        <td><%= Digest::SHA256.hexdigest((vote.big_ri).to_s + (vote.big_zi).to_s + (vote.pwf).to_s + (vote.ri).to_s + (vote.vote).to_s).truncate(7) %></td>
         <td><%= link_to 'Receipt', vote %></td>
         <% if vote.status == "confirmed" %>
           <% big_ri_product =  big_ri_product * vote.big_ri %>
