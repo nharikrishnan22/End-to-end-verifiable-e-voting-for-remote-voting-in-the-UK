@@ -16,10 +16,10 @@
     </div>
   </div>
 <% end %>
-
+  
   <div class="field">
     <% if Vote.exists?(1) %>
-      <%= form.label :id, class:"label" %>
+      <p class="label">ID<p>
       <%= form.text_field :id,value: Vote.maximum("id")+1, :readonly => true, class:"input" %> 
     <%else %>
       <p class="label">ID<p>
@@ -29,29 +29,50 @@
 
   <div class="field">
     <%= form.label :user_id, class:"label" %>
-    <%= form.text_field :user_id,value: current_user.id, :readonly => true, class:"input" %> 
+    <%= form.text_field :user_id, value: current_user.id, :readonly => true, class:"input" %> 
   </div>
+    
+  <% if vote.new_record? %>
+    <div class="control">
+      <%= form.label :vote, class:"label" %>
+      <%= form.radio_button :vote, 0, :style=>"height:1.5em; width:1.5em;" %> 
+      <%= form.label :vote_0, 0 %> 
+      <%= form.radio_button :vote, 1, :style=>"height:1.5em; width:1.5em;" %> 
+      <%= form.label :vote_1, 1 %> 
+    </div>
+  <% else %>
+    <fieldset disabled>
+      <div class="control">
+      <%= form.label :vote, class:"label" %>
+      <%= form.radio_button :vote, 0, :style=>"height:1.5em; width:1.5em;" %> 
+      <%= form.label :vote_0, 0 %> 
+      <%= form.radio_button :vote, 1, :style=>"height:1.5em; width:1.5em;" %> 
+      <%= form.label :vote_1, 1 %> 
+      </div>
+    </fieldset>
+  <% end %>
 
-  <div class="field">
-    <%= form.label :vote, class:"label" %>
-    <%= form.number_field :vote, class:"input", placeholder:"Vote" %>
-  </div>
-
-  <!-- Options include audited and confirmed-->
-  <div class="field">
+  <% if !vote.new_record? %>
+    <!-- Options include audited and confirmed-->
     <%= form.label :status, class:"label" %>
-    <%= form.text_field :status, class:"input", placeholder:"Status"  %>
-  </div>
-  
-  
-  <div class="field">
-    <p class="label">Signature</p>
-    <canvas id="pad" class="signature-pad" width=300 height=200 style="border:1px solid #000000"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-    <script>
-    var signaturePad = new SignaturePad(document.getElementById('pad'),{minWidth: 1, maxWidth: 1});
-    </script>
-  </div>
+    <div class="field">
+      <div class="control">
+        <div class="select">
+          <%= form.select :status, ['audited', 'confirmed']%>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="field">
+      <p class="label">Signature</p>
+      <canvas id="pad" class="signature-pad" width=300 height=200 style="border:1px solid #000000"></canvas>
+      <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+      <script>
+      var signaturePad = new SignaturePad(document.getElementById('pad'),{minWidth: 1, maxWidth: 1});
+      </script>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit("Submit", class: 'button is-info' ) %>

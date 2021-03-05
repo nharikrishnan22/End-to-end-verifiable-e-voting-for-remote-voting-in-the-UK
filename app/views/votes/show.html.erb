@@ -38,6 +38,7 @@
   <strong>Status:</strong>
     <%= @vote.status %>
     <p>Hash: <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s + @vote.big_zi.to_s + @vote.pwf.to_s + @vote.ri.to_s + @vote.vote.to_s).truncate(7)%></p>
+    <p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' }, class:'button is-info' %></p>
   <% end %>
 
   <% if @vote.status == "confirmed" %>  
@@ -49,8 +50,11 @@
   <% end %>
   <p><%= "Only the first 4 characters of the hash are displayed" %></p>
   <p><%= 'Note down your vote index (id) so you can edit it afterwards (Go to: http://localhost:3000/votes/id)' %></p>
-  <p><td><%= link_to 'Edit', edit_vote_path(@vote),class:'button is-info' %></p>
-  <p><%= link_to 'Destroy Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' }, class:'button is-info' %></p>
+
+  <% if @vote.status == nil %>  
+  <p><td><%= link_to 'Voting Stage 2', edit_vote_path(@vote), data: {turbolinks: "false"}, class:'button is-info' %></p>
+  <% end %>
+
 <% else %>  
   <%= 'This is not your receipt' %>
 <% end %>

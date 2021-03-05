@@ -26,10 +26,10 @@
 </p>
 
 <p>
-<% if @user.avatar.attached? %>
+<% if @user.signature.attached? %>
   <strong>Signature:</strong>
   <div>
-    <%= image_tag @user.avatar %>
+    <%= image_tag @user.signature %>
   </div>
   <% end %>
 </p>

@@ -1,4 +1,6 @@
-<h1 class="title">New Vote</h1>
+<% if @vote.new_record? %>
+<h1 class="title">Voting Stage 1</h1>
+<% end %>
 <% if current_user %>  
     <%= render 'form', vote: @vote %>
     <%= link_to 'Bulletin Board', votes_path, class:'button is-info' %>

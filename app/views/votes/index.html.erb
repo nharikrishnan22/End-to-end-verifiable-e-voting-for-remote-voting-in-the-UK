@@ -53,8 +53,8 @@
 <p><%= 'p is ' + p.to_s %></p>
 <p><%= 'g is ' + g.to_s %></p>
 <p><%= 'g_2 is ' + g_2.to_s %></p>
-<p><%= 'Total sum of votes is (not count of individuals) ' + t.to_s %></p>
-<p><%= 'Total of random numbers is ' + s.to_s %></p>
+<p><%= 'Total sum of confirmed ballot votes is (not count of individuals) ' + t.to_s %></p>
+<p><%= 'Total of random numbers (confirmed ballots only) is ' + s.to_s %></p>
 <p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
 <p><%= "Only the first 4 characters of the hash are displayed" %></p>
 
@@ -63,6 +63,6 @@
   <% vote_user_ids.push(vote.user_id) %>
 <% end %>
 <% if !vote_user_ids.include?(current_user.id) %>
-  <p><%= link_to 'New Vote', new_vote_path, data: {turbolinks: "false"}, class:'button is-info' %></p>
+  <p><%= link_to 'New Vote', new_vote_path, class:'button is-info' %></p>
 <% end %>
  
