@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_201144) do
+ActiveRecord::Schema.define(version: 2021_03_07_004750) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 2021_02_19_201144) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer "big_ri"
-    t.integer "big_zi"
+    t.string "big_ri"
+    t.string "big_zi"
     t.boolean "pwf"
     t.string "status"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "vote"
-    t.integer "ri"
+    t.string "ri"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
