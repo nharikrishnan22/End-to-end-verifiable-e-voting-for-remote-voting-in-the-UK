@@ -58,3 +58,6 @@ gem "bcrypt", "~> 3.1"
 
 # Bulma CSS
 gem "bulma-rails", "~> 0.9.1"
+
+# Elliptic Curve Digital Signature Algorithm
+gem 'ecdsa', '~> 1.2'
