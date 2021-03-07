@@ -14,12 +14,10 @@
   </thead>
 
   <tbody>
-    <% p = 17278829 %>
-    <% q = 32479 %>
-    <% g = 2130 %>
-    <% g_2 = 4536900 %>
-    <% big_ri_product = 1 %>
-    <% big_zi_product = 1 %>
+    <% group = ECDSA::Group::Nistp256 %>
+    <% count = 0 %>
+    <% big_ri_product = group.infinity %>
+    <% big_zi_product = group.infinity %>
     <% @votes.each do |vote| %>
       <tr>
       <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
@@ -29,32 +27,46 @@
         <td><%= vote.ri %></td>
         <td><%= link_to 'Receipt', vote %></td>
         <% if vote.status == "confirmed" %>
-          <% big_ri_product =  big_ri_product * vote.big_ri %>
-          <% big_zi_product =  big_zi_product * vote.big_zi %>
+          <% if count == 0 %>
+            <% big_ri_product = ECDSA::Format::PointOctetString.decode(vote.big_ri, group) %>
+            <% big_zi_product = ECDSA::Format::PointOctetString.decode(vote.big_zi, group) %>
+          <% else %>
+            <% big_ri_product = ECDSA::Format::PointOctetString.decode(vote.big_ri, group).add_to_point(big_ri_product) %>
+            <% big_zi_product = ECDSA::Format::PointOctetString.decode(vote.big_zi, group).add_to_point(big_zi_product) %>
+          <% end %>
+          <% count = count + 1 %>
         <% end %>
       </tr>
       <% end %>
     <% end %>
-    <% f = File.open("total_random", "r") %>
-    <% f2 = File.open("total_votes", "r") %>
-    <% s = f.read.to_i %>
-    <% t = f2.read.to_i %>
-    <% f.close() %>
-    <% f2.close() %>
-    <% if (((big_ri_product % p) == ((g_2 ** s) % p)) && ((big_zi_product % p) == (((g ** s) % p) * ((g ** t) % p)) % p)) %>  
-      <%= 'Tally verification successful' %>
-    <% else %> 
-      <%= 'Tally verification unsuccessful' %>
-    <% end %>
+    <% if count > 0 %>
+      <% f = File.open("total_random", "r") %>
+      <% f2 = File.open("total_votes", "r") %>
+      <% s = f.read.to_i %>
+      <% t = f2.read.to_i %>
+      <% f.close() %>
+      <% f2.close() %>
+      <% f3 = File.open("g_2", "r") %>
+      <% g_2 = f3.read %>
+      <% if t == 0 %>
+        <% if ((ECDSA::Format::PointOctetString.encode(big_ri_product) == ECDSA::Format::PointOctetString.encode(ECDSA::Format::PointOctetString.decode(g_2, group).multiply_by_scalar(s))) && (ECDSA::Format::PointOctetString.encode(big_zi_product) == ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(s)))) %>  
+        <%= 'Tally verification successful' %>
+        <% else %> 
+          <%= 'Tally verification unsuccessful' %>
+        <% end %>
+      <% else %>
+        <% if ((ECDSA::Format::PointOctetString.encode(big_ri_product) == ECDSA::Format::PointOctetString.encode(ECDSA::Format::PointOctetString.decode(g_2, group).multiply_by_scalar(s))) && (ECDSA::Format::PointOctetString.encode(big_zi_product) == ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(s).add_to_point(group.generator.multiply_by_scalar(t))))) %>  
+        <%= 'Tally verification successful' %>
+        <% else %> 
+          <%= 'Tally verification unsuccessful' %>
+        <% end %>
+      <% end %>
+      <% f3.close() %>
+  <% end %>
   </tbody>
 </table>
 
 <br>
-<p><%= 'p is ' + p.to_s %></p>
-<p><%= 'g is ' + g.to_s %></p>
-<p><%= 'g_2 is ' + g_2.to_s %></p>
-<p><%= 'Total sum of confirmed ballot votes is (not count of individuals) ' + t.to_s %></p>
-<p><%= 'Total of random numbers (confirmed ballots only) is ' + s.to_s %></p>
 <p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
 <p><%= "Only the first 4 characters of the hash are displayed" %></p>
 
