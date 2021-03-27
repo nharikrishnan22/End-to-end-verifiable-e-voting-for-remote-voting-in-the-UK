@@ -18,6 +18,7 @@
 <% end %>
   
   <div class="field">
+  <% if vote.new_record? %>
     <% if Vote.exists?(1) %>
       <p class="label">ID<p>
       <%= form.text_field :id,value: Vote.maximum("id")+1, :readonly => true, class:"input" %> 
@@ -25,6 +26,12 @@
       <p class="label">ID<p>
       <%= form.text_field :id,value: 1, :readonly => true, class:"input" %> 
     <% end %>
+  <% else %> <!-- Stage 2 of voting -->
+    <% if Vote.exists?(1) %>
+      <p class="label">ID<p>
+      <%= form.text_field :id,value: Vote.maximum("id"), :readonly => true, class:"input" %> 
+    <% end %>   
+  <% end %>
   </div>
 
   <div class="field">
