@@ -1,0 +1,47 @@
+<%= form_with(model: tallyverification, local: true) do |form| %>
+  <% if tallyverification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tallyverification.errors.count, "error") %> prohibited this tallyverification from being saved:</h2>
+
+      <ul>
+        <% tallyverification.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :g1_x %>
+    <%= form.number_field :g1_x %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g1_y %>
+    <%= form.number_field :g1_y %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g2_x %>
+    <%= form.text_field :g2_x %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g2_y %>
+    <%= form.text_field :g2_y %>
+  </div>
+
+  <div class="field">
+    <%= form.label :s %>
+    <%= form.text_field :s %>
+  </div>
+
+  <div class="field">
+    <%= form.label :t %>
+    <%= form.number_field :t %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

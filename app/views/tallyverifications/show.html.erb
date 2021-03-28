@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>G1 x:</strong>
+  <%= @tallyverification.g1_x %>
+</p>
+
+<p>
+  <strong>G1 y:</strong>
+  <%= @tallyverification.g1_y %>
+</p>
+
+<p>
+  <strong>G2 x:</strong>
+  <%= @tallyverification.g2_x %>
+</p>
+
+<p>
+  <strong>G2 y:</strong>
+  <%= @tallyverification.g2_y %>
+</p>
+
+<p>
+  <strong>S:</strong>
+  <%= @tallyverification.s %>
+</p>
+
+<p>
+  <strong>T:</strong>
+  <%= @tallyverification.t %>
+</p>
+
+<% group = ECDSA::Group::Nistp256 %>
+<% g1 = group.new_point([@tallyverification.g1_x.to_i,@tallyverification.g1_y.to_i]) %>
+<% g2 = group.new_point([@tallyverification.g2_x.to_i,@tallyverification.g2_y.to_i]) %>
+
+<p>
+<%= "Check this matches big Ri product on bulletin board: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(g2.multiply_by_scalar(@tallyverification.s.to_i)))}" %>
+</p>
+
+<%= "Check this matches big Zi product on bulletin board: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(@tallyverification.s.to_i).add_to_point(group.generator.multiply_by_scalar(@tallyverification.t.to_i))))}" %>
+
+<%= link_to 'Edit', edit_tallyverification_path(@tallyverification) %> |
+<%= link_to 'Back', tallyverifications_path %>

@@ -1,0 +1,2 @@
+class Tallyverification < ApplicationRecord
+end

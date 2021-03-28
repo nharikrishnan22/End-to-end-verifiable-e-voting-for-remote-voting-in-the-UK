@@ -48,6 +48,10 @@
       <% f2.close() %>
       <% f3 = File.open("g_2", "r") %>
       <% g_2 = f3.read %>
+      <p><%= "x coordinate of g is #{group.generator.x}" %></p>
+      <p><%= "y coordinate of g is #{group.generator.y}" %></p>
+      <p><%= "x coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).x}" %></p>
+      <p><%= "y coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).y}" %></p>
       <% if t == 0 %>
         <% if ((ECDSA::Format::PointOctetString.encode(big_ri_product) == ECDSA::Format::PointOctetString.encode(ECDSA::Format::PointOctetString.decode(g_2, group).multiply_by_scalar(s))) && (ECDSA::Format::PointOctetString.encode(big_zi_product) == ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(s)))) %>  
         <%= 'Tally verification successful' %>
@@ -69,6 +73,11 @@
 <br>
 <p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
 <p><%= "Only the first 4 characters of the hash are displayed" %></p>
+
+<p><%= "s is #{s}" %></p>
+<p><%= "t is #{t}" %></p>
+<p><%= "Hash of big Ri product is #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(big_ri_product))}" %></p>
+<p><%= "Hash of big Zi product is #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(big_zi_product))}" %></p>
 
 <% vote_user_ids = Array.new %>
 <% @votes.each do |vote| %> 
