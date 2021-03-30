@@ -39,7 +39,7 @@
         <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_zi, group).x).to_s.truncate(10) %></td>
         <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_zi, group).y).to_s.truncate(10) %></td>
         <td><%= vote.vote %></td>
-        <td><%= vote.ri %></td>
+        <td><%= vote.ri.to_s.truncate(10) %></td>
         <td><%= link_to 'Receipt', vote %></td>
         <% if vote.status == "confirmed" %>
           <% if count == 0 %>
