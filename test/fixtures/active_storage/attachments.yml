@@ -1,0 +1,4 @@
+one_signature_attachment:
+  name: signature
+  record: one (User)
+  blob: one_signature_blob

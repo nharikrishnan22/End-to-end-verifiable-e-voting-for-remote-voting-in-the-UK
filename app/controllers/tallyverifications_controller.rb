@@ -70,6 +70,6 @@ class TallyverificationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tallyverification_params
-      params.require(:tallyverification).permit(:g1_x, :g1_y, :g2_x, :g2_y, :s, :t)
+      params.require(:tallyverification).permit(:g1_x, :g1_y, :g2_x, :g2_y, :s, :t, :bigrizivalues)
     end
 end

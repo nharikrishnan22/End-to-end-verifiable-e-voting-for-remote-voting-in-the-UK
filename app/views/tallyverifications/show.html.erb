@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-
+<h1 class="title">Tally Verification</h1>
 <p>
   <strong>G1 x:</strong>
   <%= @tallyverification.g1_x %>
@@ -30,15 +29,36 @@
   <%= @tallyverification.t %>
 </p>
 
+<% require 'csv' %> 
+<% group = ECDSA::Group::Nistp256 %>
+<% big_ri_product = group.infinity %>
+<% big_zi_product = group.infinity %>
+
+<%# https://stackoverflow.com/questions/48749767/rails-read-csv-file-data-with-active-storage %>
+<% CSV.parse(@tallyverification.bigrizivalues.download, headers: true) do |row| %> 
+  <% current_point = group.new_point([row['Ri x'].to_i, row['Ri y'].to_i]) %>
+  <% big_ri_product = current_point.add_to_point(big_ri_product) %>
+  <% current_point = group.new_point([row['Zi x'].to_i, row['Zi y'].to_i]) %>
+  <% big_zi_product = current_point.add_to_point(big_zi_product) %>
+<% end %>
+<p>
+<%= "Big Ri product: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(big_ri_product))}" %>
+</p>
+<p>
+<%= "Big Zi product: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(big_zi_product))}" %>
+</p>
+
 <% group = ECDSA::Group::Nistp256 %>
 <% g1 = group.new_point([@tallyverification.g1_x.to_i,@tallyverification.g1_y.to_i]) %>
 <% g2 = group.new_point([@tallyverification.g2_x.to_i,@tallyverification.g2_y.to_i]) %>
 
 <p>
-<%= "Check this matches big Ri product on bulletin board: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(g2.multiply_by_scalar(@tallyverification.s.to_i)))}" %>
+<%= "Check this matches big Ri product above: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(g2.multiply_by_scalar(@tallyverification.s.to_i)))}" %>
 </p>
 
-<%= "Check this matches big Zi product on bulletin board: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(@tallyverification.s.to_i).add_to_point(group.generator.multiply_by_scalar(@tallyverification.t.to_i))))}" %>
-
-<%= link_to 'Edit', edit_tallyverification_path(@tallyverification) %> |
-<%= link_to 'Back', tallyverifications_path %>
+<%= "Check this matches big Zi product above: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(@tallyverification.s.to_i).add_to_point(group.generator.multiply_by_scalar(@tallyverification.t.to_i))))}" %>
+<br>
+<br>
+<div>
+<%= link_to 'Bulletin Board', votes_path, class: 'button is-info' %>
+</div>

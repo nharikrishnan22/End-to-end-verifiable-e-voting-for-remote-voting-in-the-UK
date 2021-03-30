@@ -1,12 +1,23 @@
-<p id="notice"><%= notice %></p>
-
 <h1 class="title">Bulletin board</h1>
+
+<% group = ECDSA::Group::Nistp256 %>
+<% f = File.open("g_2", "r") %>
+<% g_2 = f.read %>
+<p><%= "x coordinate of g is #{group.generator.x}" %></p>
+<p><%= "y coordinate of g is #{group.generator.y}" %></p>
+<p><%= "x coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).x}" %></p>
+<p><%= "y coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).y}" %></p>
+<% f.close() %>
 
 <table class="table">
   <thead>
     <tr>
       <th>Hash </th>
       <th>Status</th>
+      <th>Big Ri x value </th>
+      <th>Big Ri y value </th>
+      <th>Big Zi x value </th>
+      <th>Big Zi y value </th>
       <th>Vote </th>
       <th>ri </th>
       <th colspan="3"></th>
@@ -23,6 +34,10 @@
       <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
         <td><%= Digest::SHA256.hexdigest((vote.big_ri).to_s + (vote.big_zi).to_s + (vote.pwf).to_s + (vote.ri).to_s + (vote.vote).to_s).truncate(7) %></td>
         <td><%= vote.status %></td>
+        <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x).to_s.truncate(10) %></td>
+        <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y).to_s.truncate(10) %></td>
+        <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_zi, group).x).to_s.truncate(10) %></td>
+        <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_zi, group).y).to_s.truncate(10) %></td>
         <td><%= vote.vote %></td>
         <td><%= vote.ri %></td>
         <td><%= link_to 'Receipt', vote %></td>
@@ -39,46 +54,20 @@
       </tr>
       <% end %>
     <% end %>
-    <% if count > 0 %>
-      <% f = File.open("total_random", "r") %>
-      <% f2 = File.open("total_votes", "r") %>
-      <% s = f.read.to_i %>
-      <% t = f2.read.to_i %>
-      <% f.close() %>
-      <% f2.close() %>
-      <% f3 = File.open("g_2", "r") %>
-      <% g_2 = f3.read %>
-      <p><%= "x coordinate of g is #{group.generator.x}" %></p>
-      <p><%= "y coordinate of g is #{group.generator.y}" %></p>
-      <p><%= "x coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).x}" %></p>
-      <p><%= "y coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).y}" %></p>
-      <% if t == 0 %>
-        <% if ((ECDSA::Format::PointOctetString.encode(big_ri_product) == ECDSA::Format::PointOctetString.encode(ECDSA::Format::PointOctetString.decode(g_2, group).multiply_by_scalar(s))) && (ECDSA::Format::PointOctetString.encode(big_zi_product) == ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(s)))) %>  
-        <%= 'Tally verification successful' %>
-        <% else %> 
-          <%= 'Tally verification unsuccessful' %>
-        <% end %>
-      <% else %>
-        <% if ((ECDSA::Format::PointOctetString.encode(big_ri_product) == ECDSA::Format::PointOctetString.encode(ECDSA::Format::PointOctetString.decode(g_2, group).multiply_by_scalar(s))) && (ECDSA::Format::PointOctetString.encode(big_zi_product) == ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(s).add_to_point(group.generator.multiply_by_scalar(t))))) %>  
-        <%= 'Tally verification successful' %>
-        <% else %> 
-          <%= 'Tally verification unsuccessful' %>
-        <% end %>
-      <% end %>
-      <% f3.close() %>
-  <% end %>
   </tbody>
 </table>
 
 <br>
-<p><%= "Only votes that have been audited or confirmed (with status='audited' or status='confirmed' show on the bulletin board)" %></p>
-<p><%= "Only the first 4 characters of the hash are displayed" %></p>
 
+<% f = File.open("total_random", "r") %>
+<% f2 = File.open("total_votes", "r") %>
+<% s = f.read.to_i %>
+<% t = f2.read.to_i %>
 <p><%= "s is #{s}" %></p>
 <p><%= "t is #{t}" %></p>
-<p><%= "Hash of big Ri product is #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(big_ri_product))}" %></p>
-<p><%= "Hash of big Zi product is #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(big_zi_product))}" %></p>
-
+<% f.close() %>
+<% f2.close() %>
+<br>
 <% vote_user_ids = Array.new %>
 <% @votes.each do |vote| %> 
   <% vote_user_ids.push(vote.user_id) %>
@@ -86,4 +75,8 @@
 <% if !vote_user_ids.include?(current_user.id) %>
   <p><%= link_to 'New Vote', new_vote_path, class:'button is-info' %></p>
 <% end %>
+<br>
+<%# https://stackoverflow.com/questions/39069840/rails-link-to-download-file %>
+<%= link_to "Download Full Ri and Zi Values as a CSV file", download_path, target: "_blank", class: 'button is-info'%>
+<%= link_to 'Tally Verification', new_tallyverification_path,  target: "_blank", class:'button is-info' %>
  

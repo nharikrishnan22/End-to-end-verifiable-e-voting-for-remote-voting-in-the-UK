@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new', as: 'login'
   get '/sessions', to: 'sessions#create', as: 'session'
 
+  get '/download', to: 'votes#download', as: 'download'
+
 
 end

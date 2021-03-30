@@ -1,47 +1,59 @@
-<%= form_with(model: tallyverification, local: true) do |form| %>
-  <% if tallyverification.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(tallyverification.errors.count, "error") %> prohibited this tallyverification from being saved:</h2>
-
-      <ul>
-        <% tallyverification.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_with(model: tallyverification, local: true) do |form| %>
+    <% if tallyverification.errors.any? %>
+    <div class="notification is-danger">
+      <div id="error_explanation">
+      <h2 class="subtitle"><%= pluralize(tallyverification.errors.count, "error") %> prevented the tally from being verified:</h2>
+  
+        <ul>
+          <% tallyverification.errors.full_messages.each do |message| %>
+            <% if message == "Bigrizivalues can't be blank" %>
+              <li><%= "You need to upload a CSV file containing Ri and Zi values" %></li>
+            <%else %>
+              <li><%= message %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :g1_x %>
-    <%= form.number_field :g1_x %>
+    <%= form.label :g1_x, "x coordinate of g", class:"label" %>
+    <%= form.text_field :g1_x, class:"input", placeholder:"x coordinate of g1" %>
   </div>
 
   <div class="field">
-    <%= form.label :g1_y %>
-    <%= form.number_field :g1_y %>
+    <%= form.label :g1_y, "y coordinate of g", class:"label" %>
+    <%= form.text_field :g1_y, class:"input", placeholder:"y coordinate of g1" %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :g2_x, "x coordinate of g2", class:"label" %>
+    <%= form.text_field :g2_x, class:"input", placeholder:"x coordinate of g2" %>
   </div>
 
   <div class="field">
-    <%= form.label :g2_x %>
-    <%= form.text_field :g2_x %>
+    <%= form.label :g2_y, "y coordinate of g2", class:"label" %>
+    <%= form.text_field :g2_y, class:"input", placeholder:"y coordinate of g2" %>
   </div>
 
   <div class="field">
-    <%= form.label :g2_y %>
-    <%= form.text_field :g2_y %>
+    <%= form.label :s, "s", class:"label" %>
+    <%= form.text_field :s, class:"input", placeholder:"s" %>
   </div>
 
   <div class="field">
-    <%= form.label :s %>
-    <%= form.text_field :s %>
+    <%= form.label :t, "t", class:"label" %>
+    <%= form.text_field :t, class:"input", placeholder:"t" %>
   </div>
 
   <div class="field">
-    <%= form.label :t %>
-    <%= form.number_field :t %>
+    <%= form.label :bigrizivalues, "CSV File with Ri and Zi Values" , class:"label" %>
+    <%= form.file_field :bigrizivalues %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit("Verify Tally", class: 'button is-info' ) %>
   </div>
 <% end %>

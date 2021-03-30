@@ -5,6 +5,24 @@ class VotesController < ApplicationController
   # GET /votes.json
   def index
     @votes = Vote.all
+
+    # Based on https://sampatbadhe.medium.com/export-data-to-csv-file-from-rails-console-ba61c6b47185
+    # The code below saves the Ri and Zi values for all ballots as a CSV file
+    require 'csv' 
+    group = ECDSA::Group::Nistp256 
+    file = "bigrizivalues.csv"
+    headers = ["Ri x", "Ri y", "Zi x", "Zi y"]
+    CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
+      @votes.each do |vote| 
+      writer << [ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x, ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y, ECDSA::Format::PointOctetString.decode(vote.big_zi, group).x, ECDSA::Format::PointOctetString.decode(vote.big_zi, group).y] 
+      end
+    end
+
+  end
+
+  # https://stackoverflow.com/questions/39069840/rails-link-to-download-file
+  def download
+    send_file 'bigrizivalues.csv', type: 'text/csv', status: 202
   end
 
   # GET /votes/1
