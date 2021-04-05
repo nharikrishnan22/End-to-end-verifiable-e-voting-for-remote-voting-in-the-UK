@@ -1,4 +1,5 @@
 <h1 class="title">Tally Verification</h1>
+<div style="word-wrap: break-word;" >
 <p>
   <strong>G1 x:</strong>
   <%= @tallyverification.g1_x %>
@@ -56,7 +57,10 @@
 <%= "Check this matches big Ri product above: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(g2.multiply_by_scalar(@tallyverification.s.to_i)))}" %>
 </p>
 
+<p>
 <%= "Check this matches big Zi product above: #{Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(group.generator.multiply_by_scalar(@tallyverification.s.to_i).add_to_point(group.generator.multiply_by_scalar(@tallyverification.t.to_i))))}" %>
+</p>
+</div>
 <br>
 <br>
 <div>
