@@ -44,6 +44,13 @@ You may need to edit the version of Ruby in your Gemfile. Execute something like
 nano Gemfile
 ```
 
+
+## Generate new generator 
+Execute create_second_generator.rb which also clears the sum of the random numbers and tally:
+```
+ruby create_second_generator.rb
+```
+
 ## Clean up database 
 Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
 ```
