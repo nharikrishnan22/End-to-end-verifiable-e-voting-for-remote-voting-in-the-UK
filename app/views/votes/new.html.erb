@@ -2,8 +2,8 @@
 <h1 class="title">Voting Stage 1</h1>
 <% end %>
 <% if current_user %>  
-    <%= render 'form', vote: @vote %>
-    <%= link_to 'Bulletin Board', votes_path, class:'button is-info' %>
+<div class="block"><%= render 'form', vote: @vote %></div>
+<div class="block"><%= link_to 'Bulletin Board', votes_path, class:'button is-info' %></div>
 <% else %> 
     <%= link_to "Sign Up", signup_path, class:'button is-info' %> or 
     <%= link_to "Log In", login_path, class:'button is-info' %>
