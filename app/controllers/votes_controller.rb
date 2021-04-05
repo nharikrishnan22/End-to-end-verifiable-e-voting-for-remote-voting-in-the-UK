@@ -14,7 +14,9 @@ class VotesController < ApplicationController
     headers = ["Ri x", "Ri y", "Zi x", "Zi y"]
     CSV.open(file, 'w', write_headers: true, headers: headers) do |writer|
       @votes.each do |vote| 
-      writer << [ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x, ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y, ECDSA::Format::PointOctetString.decode(vote.big_zi, group).x, ECDSA::Format::PointOctetString.decode(vote.big_zi, group).y] 
+        if vote.status == "confirmed"
+          writer << [ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x, ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y, ECDSA::Format::PointOctetString.decode(vote.big_zi, group).x, ECDSA::Format::PointOctetString.decode(vote.big_zi, group).y] 
+        end
       end
     end
 
