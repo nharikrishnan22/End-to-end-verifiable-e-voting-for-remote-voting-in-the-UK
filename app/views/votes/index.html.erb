@@ -3,12 +3,16 @@
 <% group = ECDSA::Group::Nistp256 %>
 <% f = File.open("g_2", "r") %>
 <% g_2 = f.read %>
+<div style="word-wrap: break-word;" >
 <p><%= "x coordinate of g is #{group.generator.x}" %></p>
 <p><%= "y coordinate of g is #{group.generator.y}" %></p>
 <p><%= "x coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).x}" %></p>
 <p><%= "y coordinate of g2 is #{ECDSA::Format::PointOctetString.decode(g_2, group).y}" %></p>
+</div>
 <% f.close() %>
 
+<!-- https://stackoverflow.com/questions/34975081/create-and-delete-tables-in-responsive-design-ruby-on-rails-4 -->
+<%= content_tag :div, class: "big" do %>
 <table class="table">
   <thead>
     <tr>
@@ -20,7 +24,6 @@
       <th>Big Zi y value </th>
       <th>Vote </th>
       <th>ri </th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -56,6 +59,40 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+
+<%# https://stackoverflow.com/questions/34975081/create-and-delete-tables-in-responsive-design-ruby-on-rails-4 %>
+<%= content_tag :div, class: "small" do %>
+    <% group = ECDSA::Group::Nistp256 %>
+    <% count = 0 %>
+    <% big_ri_product = group.infinity %>
+    <% big_zi_product = group.infinity %>
+    <% @votes.each do |vote| %>
+      <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
+        <div class="box">
+          <p><%= "Hash: #{Digest::SHA256.hexdigest((vote.big_ri).to_s + (vote.big_zi).to_s + (vote.pwf).to_s + (vote.ri).to_s + (vote.vote).to_s).truncate(7)}" %></p>
+          <p><%= "Status: #{vote.status}" %></p>
+          <p><%= "Big Ri x value: #{(ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x).to_s.truncate(10)}" %></p>
+          <p><%= "Big Ri y value: #{(ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y).to_s.truncate(10)}" %></p>
+          <p><%= "Big Zi x value: #{(ECDSA::Format::PointOctetString.decode(vote.big_zi, group).x).to_s.truncate(10)}" %></p>
+          <p><%= "Big Zi y value: #{(ECDSA::Format::PointOctetString.decode(vote.big_zi, group).y).to_s.truncate(10)}" %></p>
+          <p><%= "Vote: #{vote.vote}" %></p>
+          <p><%= "ri: #{vote.ri.to_s.truncate(10)}" %></p>
+          <p><%= link_to 'Receipt', vote %></p>
+        </div>
+        <% if vote.status == "confirmed" %>
+          <% if count == 0 %>
+            <% big_ri_product = ECDSA::Format::PointOctetString.decode(vote.big_ri, group) %>
+            <% big_zi_product = ECDSA::Format::PointOctetString.decode(vote.big_zi, group) %>
+          <% else %>
+            <% big_ri_product = ECDSA::Format::PointOctetString.decode(vote.big_ri, group).add_to_point(big_ri_product) %>
+            <% big_zi_product = ECDSA::Format::PointOctetString.decode(vote.big_zi, group).add_to_point(big_zi_product) %>
+          <% end %>
+          <% count = count + 1 %>
+        <% end %>
+      <% end %>
+    <% end %>
+<% end %>
 
 <br>
 
@@ -63,8 +100,10 @@
 <% f2 = File.open("total_votes", "r") %>
 <% s = f.read.to_i %>
 <% t = f2.read.to_i %>
+<div style="word-wrap: break-word;" >
 <p><%= "s is #{s}" %></p>
 <p><%= "t is #{t}" %></p>
+</div>
 <% f.close() %>
 <% f2.close() %>
 <br>
@@ -72,11 +111,13 @@
 <% @votes.each do |vote| %> 
   <% vote_user_ids.push(vote.user_id) %>
 <% end %>
-<% if !vote_user_ids.include?(current_user.id) %>
-  <p><%= link_to 'New Vote', new_vote_path, class:'button is-info' %></p>
-<% end %>
 <br>
+<% if !vote_user_ids.include?(current_user.id) %>
+  <%= link_to 'New Vote', new_vote_path, class:'button is-info' %>
+<% end %>
+
 <%# https://stackoverflow.com/questions/39069840/rails-link-to-download-file %>
 <%= link_to "Download Full Ri and Zi Values as a CSV file", download_path, target: "_blank", class: 'button is-info'%>
+
 <%= link_to 'Tally Verification', new_tallyverification_path,  target: "_blank", class:'button is-info' %>
  
