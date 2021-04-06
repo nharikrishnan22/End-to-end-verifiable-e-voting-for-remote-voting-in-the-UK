@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auditverifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Big ri</th>
+      <th>Big zi</th>
+      <th>G1 x</th>
+      <th>G1 y</th>
+      <th>G2 x</th>
+      <th>G2 y</th>
+      <th>Vote</th>
+      <th>Ri</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auditverifications.each do |auditverification| %>
+      <tr>
+        <td><%= auditverification.big_ri %></td>
+        <td><%= auditverification.big_zi %></td>
+        <td><%= auditverification.g1_x %></td>
+        <td><%= auditverification.g1_y %></td>
+        <td><%= auditverification.g2_x %></td>
+        <td><%= auditverification.g2_y %></td>
+        <td><%= auditverification.vote %></td>
+        <td><%= auditverification.ri %></td>
+        <td><%= link_to 'Show', auditverification %></td>
+        <td><%= link_to 'Edit', edit_auditverification_path(auditverification) %></td>
+        <td><%= link_to 'Destroy', auditverification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auditverification', new_auditverification_path %>

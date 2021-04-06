@@ -1,0 +1,71 @@
+<h1 class="title">Audit Consistency Verification</h1>
+<div style="word-wrap: break-word;" >
+<p>
+  <strong>Ri (in hash form):</strong>
+  <%= @auditverification.big_ri %>
+</p>
+
+<p>
+  <strong>Zi (in hash form):</strong>
+  <%= @auditverification.big_zi %>
+</p>
+
+<p>
+  <strong>G1 x:</strong>
+  <%= @auditverification.g1_x %>
+</p>
+
+<p>
+  <strong>G1 y:</strong>
+  <%= @auditverification.g1_y %>
+</p>
+
+<p>
+  <strong>G2 x:</strong>
+  <%= @auditverification.g2_x %>
+</p>
+
+<p>
+  <strong>G2 y:</strong>
+  <%= @auditverification.g2_y %>
+</p>
+
+<p>
+  <strong>Vote:</strong>
+  <%= @auditverification.vote %>
+</p>
+
+<p>
+  <strong>ri:</strong>
+  <%= @auditverification.ri %>
+</p>
+<br>
+
+<% group = ECDSA::Group::Nistp256 %>
+<% g1 = group.new_point([@auditverification.g1_x.to_i,@auditverification.g1_y.to_i]) %>
+<% g2 = group.new_point([@auditverification.g2_x.to_i,@auditverification.g2_y.to_i]) %>
+
+<% g1_ri = g1.multiply_by_scalar(@auditverification.ri.to_i) %>
+<% big_ri = g2.multiply_by_scalar(@auditverification.ri.to_i) %>
+<% value = 0 %>
+<% if @auditverification.vote == 0 %>
+  <% value = group.infinity %>
+<% else %>
+  <% value = g1 %>
+<% end %>
+<% right_big_ri = ECDSA::Format::PointOctetString.encode(g2.multiply_by_scalar(@auditverification.ri.to_i)) %>
+<% right_big_zi = ECDSA::Format::PointOctetString.encode(g1_ri.add_to_point(value)) %>
+
+<p>
+<%= "Check this matches the hash of Ri above: #{Digest::SHA256.hexdigest(right_big_ri)}" %>
+</p>
+<p>
+<%= "Check this matches the hash of Zi above: #{Digest::SHA256.hexdigest(right_big_zi)}" %>
+</p>
+
+</div>
+
+<br>
+<div>
+<%= link_to 'Bulletin Board', votes_path, class: 'button is-info' %>
+</div>

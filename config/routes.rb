@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :auditverifications
   resources :tallyverifications
   resources :votes
   root 'welcome#index'

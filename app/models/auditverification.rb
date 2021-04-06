@@ -1,0 +1,2 @@
+class Auditverification < ApplicationRecord
+end

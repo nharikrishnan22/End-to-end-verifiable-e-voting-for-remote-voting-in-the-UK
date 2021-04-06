@@ -1,0 +1,60 @@
+<%= form_with(model: auditverification, local: true) do |form| %>
+  <% if auditverification.errors.any? %>
+    <div class="notification is-danger">
+      <div id="error_explanation">
+      <h2 class="subtitle"><%= pluralize(auditverification.errors.count, "error") %> prohibited audit consistency verification to be carried out:</h2>
+  
+        <ul>
+        <% auditverification.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label "Ri (input a hash of it)", class:"label" %>
+    <%= form.text_field :big_ri, class:"input", placeholder:"Hash of Ri" %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Zi (input a hash of it)", class:"label" %>
+    <%= form.text_field :big_zi, class:"input", placeholder:"Hash of Zi" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g1_x, "x coordinate of g", class:"label" %>
+    <%= form.text_field :g1_x, class:"input", placeholder:"x coordinate of g" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g1_y, "y coordinate of g", class:"label" %>
+    <%= form.text_field :g1_y, class:"input", placeholder:"y coordinate of g" %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :g2_x, "x coordinate of g2", class:"label" %>
+    <%= form.text_field :g2_x, class:"input", placeholder:"x coordinate of g2" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g2_y, "y coordinate of g2", class:"label" %>
+    <%= form.text_field :g2_y, class:"input", placeholder:"y coordinate of g2" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vote, class:"label" %>
+    <%= form.text_field :vote, class:"input", placeholder:"Vote" %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Random number ri (from ballot receipt)", class:"label" %>
+    <%= form.text_field :ri, class:"input", placeholder:"ri" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit("Verify Audit Consistency", class: 'button is-info' ) %>
+  </div>
+<% end %>
