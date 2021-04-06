@@ -10,7 +10,7 @@
 </p>
 
 <p>
-<strong>Hash (first 4 characters):</strong>
+<strong>Hash of whole receipt (first 4 characters):</strong>
   <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s + @vote.big_zi.to_s + @vote.pwf.to_s + @vote.ri.to_s + @vote.vote.to_s).truncate(7)%>
 </p>
 
@@ -20,6 +20,16 @@
 </p>
 
 <% if @vote.status == "audited" %>  
+<p>
+<strong>Hash of Ri:</strong>
+  <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s) %>
+</p>
+
+<p>
+<strong>Hash of Zi:</strong>
+  <%= hash = Digest::SHA256.hexdigest(@vote.big_zi.to_s) %>
+</p>
+
 <p>
   <strong>Vote:</strong>
   <%= @vote.vote %>
