@@ -15,7 +15,6 @@ class Vote < ApplicationRecord
     group = ECDSA::Group::Nistp256
     ri = 1 + SecureRandom.random_number(group.order - 1)
     g1_ri = group.generator.multiply_by_scalar(ri)
-    private_key = 1 + SecureRandom.random_number(group.order - 1)
     big_ri = @@g2.multiply_by_scalar(ri)
     big_zi = 0
     if self.vote == 0
