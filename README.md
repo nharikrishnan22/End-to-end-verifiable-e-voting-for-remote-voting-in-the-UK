@@ -51,11 +51,27 @@ Execute create_second_generator.rb which also clears the sum of the random numbe
 ruby create_second_generator.rb
 ```
 
-## Clean up database 
+## Setup/Clean up database 
 Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
 ```
 rake db:reset
 ```
+
+## Start web server (access voting platform on current device only)
+Run the command below:
+```
+rails server
+```
+Go to [http://localhost:3000](http://localhost:3000) to access the voting platform.
+
+## Start web server (access voting platform on current device and on other devices on the local network)
+Run the command below:
+```
+rails server -b 0.0.0.0 
+```
+Go to [http://localhost:3000](http://localhost:3000) to access the voting platform on the device that is running the server.
+
+Go to [IP Address of the device running the server]:3000 to access the voting platform from another device on the local network.
 
 ## Acknowledgements
 This project would not have been possible without Professor Feng Hao's guidance.
