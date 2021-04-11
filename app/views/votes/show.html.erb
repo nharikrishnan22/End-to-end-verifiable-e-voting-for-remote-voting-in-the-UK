@@ -58,8 +58,4 @@
 <%= link_to 'Voting Stage 2', edit_vote_path(@vote), data: {turbolinks: "false"}, class:'button is-info' %>
 <% end %>
 
-<% if (@vote.status == "audited" && @vote.user_id == current_user.id)  %>  
-<%= link_to 'Delete Vote', @vote, method: :delete, data: { confirm: 'Are you sure?' }, class:'button is-info' %>
-<% end %>
-
 <%= link_to 'Bulletin Board', votes_path,class:'button is-info' %>
