@@ -51,10 +51,16 @@ Execute create_second_generator.rb which also clears the sum of the random numbe
 ruby create_second_generator.rb
 ```
 
-## Clean up database 
+## Setup/Clean up database 
 Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
 ```
 rake db:reset
+```
+
+## Start web server
+Run the command below and then go to [http://localhost:3000]
+```
+rails s -b 0.0.0.0
 ```
 
 ## Acknowledgements
