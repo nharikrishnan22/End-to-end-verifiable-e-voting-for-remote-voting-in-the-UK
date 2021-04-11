@@ -57,11 +57,20 @@ Drop database, load schema and seed the data from db/seeds.rb: see this [link](h
 rake db:reset
 ```
 
-## Start web server
-Run the command below and then go to [http://localhost:3000](http://localhost:3000)
+## Start web server (access voting platform on local device only)
+Run the command below:
 ```
-rails s -b 0.0.0.0
+rails server
 ```
+Go to [http://localhost:3000](http://localhost:3000) to access the voting platform.
+
+## Start web server (access voting platform on local device and on other devices on the local network)
+Run the command below:
+```
+rails server -b 0.0.0.0 
+```
+Go to [http://localhost:3000](http://localhost:3000) to access the voting platform on the device that is running the server.
+Go to [IP Address of the network device]:3000 to access the voting platform from another device on the local network.
 
 ## Acknowledgements
 This project would not have been possible without Professor Feng Hao's guidance.
