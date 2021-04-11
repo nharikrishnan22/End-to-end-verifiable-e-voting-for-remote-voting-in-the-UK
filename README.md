@@ -70,6 +70,7 @@ Run the command below:
 rails server -b 0.0.0.0 
 ```
 Go to [http://localhost:3000](http://localhost:3000) to access the voting platform on the device that is running the server.
+
 Go to [IP Address of the network device]:3000 to access the voting platform from another device on the local network.
 
 ## Acknowledgements
