@@ -58,7 +58,7 @@ rake db:reset
 ```
 
 ## Start web server
-Run the command below and then go to [http://localhost:3000]
+Run the command below and then go to [http://localhost:3000](http://localhost:3000)
 ```
 rails s -b 0.0.0.0
 ```
