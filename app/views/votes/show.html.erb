@@ -4,6 +4,7 @@
     <%= notice %>
   </div>
 <% end %>
+<% group = ECDSA::Group::Nistp256 %>
 <p>
 <strong>Index:</strong>
 <%= @vote.id %>
@@ -11,24 +12,51 @@
 
 <p>
 <strong>Hash of whole receipt (first 4 characters):</strong>
-  <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s + @vote.big_zi.to_s + @vote.pwf.to_s + @vote.ri.to_s + @vote.vote.to_s).truncate(7)%>
+  <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s + @vote.big_zi.to_s + @vote.pwf_c_1.to_s + @vote.pwf_c_2.to_s + @vote.pwf_r_1.to_s + @vote.pwf_r_2.to_s + @vote.ri.to_s + @vote.vote.to_s).truncate(7)%>
 </p>
 
+<div style="word-wrap: break-word;" >
 <p>
 <strong>Pwf:</strong>
-<%= @vote.pwf %>
+<p><%= "(c_1: #{@vote.pwf_c_1}," %></p>
+<p><%= "c_2: #{@vote.pwf_c_2}," %></p>
+<p><%= "r_1: #{@vote.pwf_r_1}," %></p>
+<p><%= "r_2: #{@vote.pwf_r_2})" %></p>
 </p>
+</div>
 
-<% if @vote.status == "audited" %>  
 <p>
 <strong>Hash of Ri:</strong>
   <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s) %>
 </p>
 
 <p>
+<strong>Ri x:</strong>
+  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_ri, group).x}" %></p>
+</p>
+
+<p>
+<strong>Ri y:</strong>
+  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_ri, group).y}" %></p>
+</p>
+
+<p>
 <strong>Hash of Zi:</strong>
   <%= hash = Digest::SHA256.hexdigest(@vote.big_zi.to_s) %>
 </p>
+
+<p>
+<strong>Zi x:</strong>
+  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_zi, group).x}" %></p>
+</p>
+
+<p>
+<strong>Zi y:</strong>
+  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_zi, group).y}" %></p>
+</p>
+
+
+<% if @vote.status == "audited" %>  
 
 <p>
   <strong>Vote:</strong>

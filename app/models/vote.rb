@@ -22,7 +22,47 @@ class Vote < ApplicationRecord
     else
       big_zi = g1_ri.add_to_point(group.generator)
     end
-    self.pwf = (true && ECDSA::Format::PointOctetString.encode(big_zi)  == ECDSA::Format::PointOctetString.encode(g1_ri)) || (true && ECDSA::Format::PointOctetString.encode(big_zi.add_to_point(group.generator.negate())) == ECDSA::Format::PointOctetString.encode(g1_ri))
+
+    # Proof of Well-Formedness
+    w = SecureRandom.random_number(group.order)
+    if self.vote == 0
+      pwf_r_2 = SecureRandom.random_number(group.order)
+      pwf_c_2 = SecureRandom.random_number(group.order)
+
+      t_1 = @@g2.multiply_by_scalar(w)
+      t_2 = group.generator.multiply_by_scalar(w)
+      t_3 = @@g2.multiply_by_scalar(pwf_r_2).add_to_point(big_ri.multiply_by_scalar(pwf_c_2))
+      t_4 = group.generator.multiply_by_scalar(pwf_r_2).add_to_point(big_zi.add_to_point(group.generator.negate()).multiply_by_scalar(pwf_c_2))
+
+      c = Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(@@g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(@@g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(big_ri).to_s + ECDSA::Format::PointOctetString.encode(big_zi).to_s + ECDSA::Format::PointOctetString.encode(t_1).to_s + ECDSA::Format::PointOctetString.encode(t_2).to_s + ECDSA::Format::PointOctetString.encode(t_3).to_s + ECDSA::Format::PointOctetString.encode(t_4).to_s)
+
+      pwf_c_1 = (c.to_i(16) - pwf_c_2) % group.order
+      pwf_r_1 = (w - (pwf_c_1 * ri)) % group.order
+
+      self.pwf_c_1 = pwf_c_1.to_s # convert to string to store in database (too large to be stored as integer)
+      self.pwf_c_2 = pwf_c_2.to_s # too large to be stored as an integer
+      self.pwf_r_1 = pwf_r_1.to_s # too large to be stored as an integer
+      self.pwf_r_2 = pwf_r_2.to_s # too large to be stored as an integer
+    else
+      pwf_r_1 = SecureRandom.random_number(group.order)
+      pwf_c_1 = SecureRandom.random_number(group.order)
+
+      t_1 = @@g2.multiply_by_scalar(pwf_r_1).add_to_point(big_ri.multiply_by_scalar(pwf_c_1))
+      t_2 = group.generator.multiply_by_scalar(pwf_r_1).add_to_point(big_zi.multiply_by_scalar(pwf_c_1))
+      t_3 = @@g2.multiply_by_scalar(w)
+      t_4 = group.generator.multiply_by_scalar(w)
+
+      c = Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(@@g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(@@g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(big_ri).to_s + ECDSA::Format::PointOctetString.encode(big_zi).to_s + ECDSA::Format::PointOctetString.encode(t_1).to_s + ECDSA::Format::PointOctetString.encode(t_2).to_s + ECDSA::Format::PointOctetString.encode(t_3).to_s + ECDSA::Format::PointOctetString.encode(t_4).to_s)
+
+      pwf_c_2 = (c.to_i(16) - pwf_c_1) % group.order
+      pwf_r_2 = (w - (pwf_c_2 * ri)) % group.order
+
+      self.pwf_c_1 = pwf_c_1.to_s # convert to string to store in database (too large to be stored as integer)
+      self.pwf_c_2 = pwf_c_2.to_s # too large to be stored as an integer
+      self.pwf_r_1 = pwf_r_1.to_s # too large to be stored as an integer
+      self.pwf_r_2 = pwf_r_2.to_s # too large to be stored as an integer
+    end
+
     self.ri = ri.to_s # convert to string to store in database (too large to be stored as integer)
     self.big_ri = ECDSA::Format::PointOctetString.encode(@@g2.multiply_by_scalar(ri)).force_encoding("UTF-8")
     value = 0

@@ -35,7 +35,7 @@
     <% @votes.each do |vote| %>
       <tr>
       <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
-        <td><%= Digest::SHA256.hexdigest((vote.big_ri).to_s + (vote.big_zi).to_s + (vote.pwf).to_s + (vote.ri).to_s + (vote.vote).to_s).truncate(7) %></td>
+        <td><%= Digest::SHA256.hexdigest(vote.big_ri.to_s + vote.big_zi.to_s + vote.pwf_c_1.to_s + vote.pwf_c_2.to_s + vote.pwf_r_1.to_s + vote.pwf_r_2.to_s + vote.ri.to_s + vote.vote.to_s).truncate(7) %></td>
         <td><%= vote.status %></td>
         <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x).to_s.truncate(10) %></td>
         <td><%= (ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y).to_s.truncate(10) %></td>
@@ -70,7 +70,7 @@
     <% @votes.each do |vote| %>
       <% if (vote.status == "confirmed" || vote.status == "audited" )%>  
         <div class="box">
-          <p><%= "Hash: #{Digest::SHA256.hexdigest((vote.big_ri).to_s + (vote.big_zi).to_s + (vote.pwf).to_s + (vote.ri).to_s + (vote.vote).to_s).truncate(7)}" %></p>
+          <p><%= "Hash: #{Digest::SHA256.hexdigest(vote.big_ri.to_s + vote.big_zi.to_s + vote.pwf_c_1.to_s + vote.pwf_c_2.to_s + vote.pwf_r_1.to_s + vote.pwf_r_2.to_s + vote.ri.to_s + vote.vote.to_s).truncate(7)}" %></p>
           <p><%= "Status: #{vote.status}" %></p>
           <p><%= "Big Ri x value: #{(ECDSA::Format::PointOctetString.decode(vote.big_ri, group).x).to_s.truncate(10)}" %></p>
           <p><%= "Big Ri y value: #{(ECDSA::Format::PointOctetString.decode(vote.big_ri, group).y).to_s.truncate(10)}" %></p>
@@ -122,4 +122,5 @@
 <%= link_to 'Tally Verification', new_tallyverification_path,  target: "_blank", class:'button is-info' %>
 
 <%= link_to 'Carry out audit consistency verification on a ballot', new_auditverification_path,  target: "_blank", class:'button is-info' %>
- 
+
+<%= link_to 'Carry out well-formedness verification on a ballot', new_wellformednessverification_path,  target: "_blank", class:'button is-info' %>

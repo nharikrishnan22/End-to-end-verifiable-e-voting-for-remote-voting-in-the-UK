@@ -1,0 +1,78 @@
+<%= form_with(model: wellformednessverification, local: true) do |form| %>
+  <% if wellformednessverification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(wellformednessverification.errors.count, "error") %> prohibited this wellformednessverification from being saved:</h2>
+
+      <ul>
+        <% wellformednessverification.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :g1_x, "x coordinate of g", class:"label" %>
+    <%= form.text_field :g1_x, class:"input", placeholder:"x coordinate of g" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g1_y, "y coordinate of g", class:"label" %>
+    <%= form.text_field :g1_y, class:"input", placeholder:"y coordinate of g" %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :g2_x, "x coordinate of g2", class:"label" %>
+    <%= form.text_field :g2_x, class:"input", placeholder:"x coordinate of g2" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :g2_y, "y coordinate of g2", class:"label" %>
+    <%= form.text_field :g2_y, class:"input", placeholder:"y coordinate of g2" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :big_ri_x, "x coordinate of big_ri", class:"label" %>
+    <%= form.text_field :big_ri_x, class:"input", placeholder:"x coordinate of big_ri" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :big_ri_y, "y coordinate of big_ri", class:"label" %>
+    <%= form.text_field :big_ri_y, class:"input", placeholder:"y coordinate of big_ri" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :big_zi_x, "x coordinate of big_zi", class:"label" %>
+    <%= form.text_field :big_zi_x, class:"input", placeholder:"x coordinate of big_zi" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :big_zi_y, "y coordinate of big_zi", class:"label" %>
+    <%= form.text_field :big_zi_y, class:"input", placeholder:"y coordinate of big_zi" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :c_1, "c_1", class:"label" %>
+    <%= form.text_field :c_1, class:"input", placeholder:"c_1" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :c_2, "c_2", class:"label" %>
+    <%= form.text_field :c_2, class:"input", placeholder:"c_2" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :r_1, "r_1", class:"label" %>
+    <%= form.text_field :r_1, class:"input", placeholder:"r_1" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :r_2, "r_2", class:"label" %>
+    <%= form.text_field :r_2, class:"input", placeholder:"r_2" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit("Verify Well-Formedness", class: 'button is-info' ) %>
+  </div>
+<% end %>

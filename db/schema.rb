@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_184021) do
+ActiveRecord::Schema.define(version: 2021_04_17_023808) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -71,14 +71,34 @@ ActiveRecord::Schema.define(version: 2021_04_05_184021) do
   create_table "votes", force: :cascade do |t|
     t.string "big_ri"
     t.string "big_zi"
-    t.boolean "pwf"
     t.string "status"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "vote"
     t.string "ri"
+    t.string "pwf_c_1"
+    t.string "pwf_c_2"
+    t.string "pwf_r_1"
+    t.string "pwf_r_2"
     t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
+  create_table "wellformednessverifications", force: :cascade do |t|
+    t.string "c_1"
+    t.string "c_2"
+    t.string "r_1"
+    t.string "r_2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "g1_x"
+    t.string "g1_y"
+    t.string "g2_x"
+    t.string "g2_y"
+    t.string "big_ri_x"
+    t.string "big_ri_y"
+    t.string "big_zi_x"
+    t.string "big_zi_y"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

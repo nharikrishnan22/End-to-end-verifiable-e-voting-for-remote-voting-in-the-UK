@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wellformednessverifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>C 1</th>
+      <th>C 2</th>
+      <th>R 1</th>
+      <th>R 2</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wellformednessverifications.each do |wellformednessverification| %>
+      <tr>
+        <td><%= wellformednessverification.c_1 %></td>
+        <td><%= wellformednessverification.c_2 %></td>
+        <td><%= wellformednessverification.r_1 %></td>
+        <td><%= wellformednessverification.r_2 %></td>
+        <td><%= link_to 'Show', wellformednessverification %></td>
+        <td><%= link_to 'Edit', edit_wellformednessverification_path(wellformednessverification) %></td>
+        <td><%= link_to 'Destroy', wellformednessverification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wellformednessverification', new_wellformednessverification_path %>

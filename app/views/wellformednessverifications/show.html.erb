@@ -1,0 +1,38 @@
+<h1 class="title">Well-formedness Verification</h1>
+<div style="word-wrap: break-word;" >
+
+<br>
+
+<% group = ECDSA::Group::Nistp256 %>
+<% g1 = group.new_point([@wellformednessverification.g1_x.to_i,@wellformednessverification.g1_y.to_i]) %>
+<% g2 = group.new_point([@wellformednessverification.g2_x.to_i,@wellformednessverification.g2_y.to_i]) %>
+
+<% big_ri = group.new_point([@wellformednessverification.big_ri_x.to_i,@wellformednessverification.big_ri_y.to_i]) %>
+<% big_zi = group.new_point([@wellformednessverification.big_zi_x.to_i,@wellformednessverification.big_zi_y.to_i]) %>
+
+<% t_1 = g2.multiply_by_scalar(@wellformednessverification.r_1.to_i).add_to_point(big_ri.multiply_by_scalar(@wellformednessverification.c_1.to_i)) %>
+<% t_2 = g1.multiply_by_scalar(@wellformednessverification.r_1.to_i).add_to_point(big_zi.multiply_by_scalar(@wellformednessverification.c_1.to_i)) %>
+<% t_3 = g2.multiply_by_scalar(@wellformednessverification.r_2.to_i).add_to_point(big_ri.multiply_by_scalar(@wellformednessverification.c_2.to_i)) %>
+<% t_4 = g1.multiply_by_scalar(@wellformednessverification.r_2.to_i).add_to_point((big_zi.add_to_point(group.generator.negate())).multiply_by_scalar(@wellformednessverification.c_2.to_i)) %>
+
+<% c = Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(big_ri).to_s + ECDSA::Format::PointOctetString.encode(big_zi).to_s + ECDSA::Format::PointOctetString.encode(t_1).to_s + ECDSA::Format::PointOctetString.encode(t_2).to_s + ECDSA::Format::PointOctetString.encode(t_3).to_s + ECDSA::Format::PointOctetString.encode(t_4).to_s) %>
+
+<p>
+<%= "Check that that the values below match:" %>
+</p>
+
+<p>
+<%= "#{(@wellformednessverification.c_1.to_i + @wellformednessverification.c_2.to_i) % group.order}" %>
+</p>
+
+<p>
+<%= "#{(c.to_i(16)) % group.order}" %>
+</p>
+
+</div>
+
+<br>
+<div>
+<%= link_to 'Bulletin Board', votes_path, class: 'button is-info' %>
+</div>
+
