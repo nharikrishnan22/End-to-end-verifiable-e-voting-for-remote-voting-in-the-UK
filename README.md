@@ -51,6 +51,10 @@ Execute create_second_generator.rb which also clears the sum of the random numbe
 ruby create_second_generator.rb
 ```
 
+## Create new users
+Go to [http://localhost:3000/signup](http://localhost:3000/signup).
+
+
 ## Setup/Clean up database 
 Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
 ```
