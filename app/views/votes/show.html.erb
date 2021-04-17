@@ -4,40 +4,44 @@
     <%= notice %>
   </div>
 <% end %>
+
+<p>
+<strong>Hash of whole receipt (first 4 characters):</strong>
+  <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s + @vote.big_zi.to_s + @vote.pwf_c_1.to_s + @vote.pwf_c_2.to_s + @vote.pwf_r_1.to_s + @vote.pwf_r_2.to_s + @vote.ri.to_s + @vote.vote.to_s).truncate(7)%>
+</p>
+<br>
+
+<h2 class="title is-4">Receipt Part 1</h2>
 <% group = ECDSA::Group::Nistp256 %>
 <p>
 <strong>Index:</strong>
 <%= @vote.id %>
 </p>
 
-<p>
-<strong>Hash of whole receipt (first 4 characters):</strong>
-  <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s + @vote.big_zi.to_s + @vote.pwf_c_1.to_s + @vote.pwf_c_2.to_s + @vote.pwf_r_1.to_s + @vote.pwf_r_2.to_s + @vote.ri.to_s + @vote.vote.to_s).truncate(7)%>
-</p>
-
 <div style="word-wrap: break-word;" >
 <p>
-<strong>Pwf:</strong>
-<p><%= "(c_1: #{@vote.pwf_c_1}," %></p>
-<p><%= "c_2: #{@vote.pwf_c_2}," %></p>
-<p><%= "r_1: #{@vote.pwf_r_1}," %></p>
-<p><%= "r_2: #{@vote.pwf_r_2})" %></p>
+<strong>Proof of well-formedness:</strong>
+<p><%= "c_1: #{@vote.pwf_c_1}" %></p>
+<p><%= "c_2: #{@vote.pwf_c_2}" %></p>
+<p><%= "r_1: #{@vote.pwf_r_1}" %></p>
+<p><%= "r_2: #{@vote.pwf_r_2}" %></p>
 </p>
 </div>
 
+<div style="word-wrap: break-word;" >
 <p>
 <strong>Hash of Ri:</strong>
   <%= hash = Digest::SHA256.hexdigest(@vote.big_ri.to_s) %>
 </p>
 
 <p>
-<strong>Ri x:</strong>
-  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_ri, group).x}" %></p>
+<strong>Ri x coordinate:</strong>
+  <%= ECDSA::Format::PointOctetString.decode(@vote.big_ri, group).x %>
 </p>
 
 <p>
-<strong>Ri y:</strong>
-  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_ri, group).y}" %></p>
+<strong>Ri y coordinate:</strong>
+  <%= ECDSA::Format::PointOctetString.decode(@vote.big_ri, group).y %>
 </p>
 
 <p>
@@ -46,44 +50,63 @@
 </p>
 
 <p>
-<strong>Zi x:</strong>
-  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_zi, group).x}" %></p>
+<strong>Zi x coordinate:</strong>
+  <%= ECDSA::Format::PointOctetString.decode(@vote.big_zi, group).x %>
 </p>
 
 <p>
-<strong>Zi y:</strong>
-  <p><%= "#{ECDSA::Format::PointOctetString.decode(@vote.big_zi, group).y}" %></p>
+<strong>Zi y coordinate:</strong>
+  <%= ECDSA::Format::PointOctetString.decode(@vote.big_zi, group).y %>
 </p>
+</div>
+
+<br>
+
+<h2 class="title is-4">Receipt Part 2</h2>
 
 
-<% if @vote.status == "audited" %>  
+<% if @vote.status == "audited" %> 
+
+<p>
+<strong>Status:</strong>
+  <%= @vote.status %>
+</p>
 
 <p>
   <strong>Vote:</strong>
   <%= @vote.vote %>
 </p>
 
+<div style="word-wrap: break-word;" >
 <p>
   <strong>ri:</strong>
   <%= @vote.ri %>
 </p>
+</div>
+
+<br>
+
+<%= link_to 'Bulletin Board', votes_path,class:'button is-info' %>
+
+<% elsif @vote.status == "confirmed" %>  
 
 <p>
 <strong>Status:</strong>
   <%= @vote.status %>
 </p>
-<% end %>
 
-<% if @vote.status == "confirmed" %>  
-<p>
-<strong>Status:</strong>
-  <%= @vote.status %>
-</p>
+<br>
+
+<%= link_to 'Bulletin Board', votes_path,class:'button is-info' %>
+
+<% else %>
+
+<div>
+<p>The second part of the receipt will be shown once voting is complete</p>
+</div>
 
 <% end %>
 <br>
 <% if (@vote.status == nil && @vote.user_id == current_user.id) %>  
 <%= link_to 'Voting Stage 2', edit_vote_path(@vote), data: {turbolinks: "false"}, class:'button is-info' %>
 <% end %>
-
-<%= link_to 'Bulletin Board', votes_path,class:'button is-info' %>
