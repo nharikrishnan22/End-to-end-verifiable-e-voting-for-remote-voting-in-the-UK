@@ -1,5 +1,64 @@
 <h1 class="title">Well-Formedness Verification</h1>
 <div style="word-wrap: break-word;" >
+<p>
+  <strong>x coordinate of g:</strong>
+  <%= @wellformednessverification.g1_x %>
+</p>
+
+<p>
+  <strong>y coordinate of g:</strong>
+  <%= @wellformednessverification.g1_y %>
+</p>
+
+<p>
+  <strong>x coordinate of g2:</strong>
+  <%= @wellformednessverification.g2_x %>
+</p>
+
+<p>
+  <strong>y coordinate of g:</strong>
+  <%= @wellformednessverification.g2_y %>
+</p>
+
+<p>
+  <strong>x coordinate of Ri:</strong>
+  <%= @wellformednessverification.big_ri_x %>
+</p>
+
+<p>
+  <strong>y coordinate of Ri:</strong>
+  <%= @wellformednessverification.big_ri_y %>
+</p>
+
+<p>
+  <strong>x coordinate of Zi:</strong>
+  <%= @wellformednessverification.big_zi_x %>
+</p>
+
+<p>
+  <strong>y coordinate of Zi:</strong>
+  <%= @wellformednessverification.big_zi_y %>
+</p>
+
+<p>
+  <strong>c_1:</strong>
+  <%= @wellformednessverification.c_1 %>
+</p>
+
+<p>
+  <strong>c_2:</strong>
+  <%= @wellformednessverification.c_2 %>
+</p>
+
+<p>
+  <strong>r_1:</strong>
+  <%= @wellformednessverification.r_1 %>
+</p>
+
+<p>
+  <strong>r_2:</strong>
+  <%= @wellformednessverification.r_2 %>
+</p>
 
 <br>
 
@@ -18,7 +77,7 @@
 <% c = Digest::SHA256.hexdigest(ECDSA::Format::PointOctetString.encode(g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(g2).to_s + ECDSA::Format::PointOctetString.encode(group.generator).to_s + ECDSA::Format::PointOctetString.encode(big_ri).to_s + ECDSA::Format::PointOctetString.encode(big_zi).to_s + ECDSA::Format::PointOctetString.encode(t_1).to_s + ECDSA::Format::PointOctetString.encode(t_2).to_s + ECDSA::Format::PointOctetString.encode(t_3).to_s + ECDSA::Format::PointOctetString.encode(t_4).to_s) %>
 
 <p>
-<%= "Check that that the values below match:" %>
+<%= "Check that the values below match:" %>
 </p>
 
 <p>
