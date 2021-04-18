@@ -2,7 +2,7 @@
   <% if auditverification.errors.any? %>
     <div class="notification is-danger">
       <div id="error_explanation">
-      <h2 class="subtitle"><%= pluralize(auditverification.errors.count, "error") %> prohibited audit consistency verification to be carried out:</h2>
+      <h2 class="subtitle"><%= pluralize(auditverification.errors.count, "error") %> prevented audit consistency verification from being carried out:</h2>
   
         <ul>
         <% auditverification.errors.full_messages.each do |message| %>

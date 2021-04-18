@@ -1,7 +1,7 @@
 <%= form_with(model: wellformednessverification, local: true) do |form| %>
   <% if wellformednessverification.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(wellformednessverification.errors.count, "error") %> prohibited this wellformednessverification from being saved:</h2>
+      <h2><%= pluralize(wellformednessverification.errors.count, "error") %> prevented well-formedness verification from being carried out:</h2>
 
       <ul>
         <% wellformednessverification.errors.full_messages.each do |message| %>
