@@ -84,7 +84,7 @@ rake db:reset
 
 
 ## Run tests
-Test all the models using [RSpec](https://github.com/rspec/rspec-rails)
+Test all the models using [RSpec](https://github.com/rspec/rspec-rails):
 ```
 bundle exec rspec spec/models --format documentation
 ```
