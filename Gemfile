@@ -61,3 +61,13 @@ gem "bulma-rails", "~> 0.9.1"
 
 # Elliptic Curve Digital Signature Algorithm
 gem 'ecdsa', '~> 1.2'
+
+# RSpec Testing
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0.0'
+end
+
+# Shoulda Matchers provides RSpec- and Minitest-compatible one-liners to test common Rails functionality
+group :test do
+  gem 'shoulda-matchers', '~> 4.0'
+end
