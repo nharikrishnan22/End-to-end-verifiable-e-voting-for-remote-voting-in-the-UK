@@ -18,6 +18,7 @@ Example installation instructions for Ubuntu:
 ```
 sudo apt install sqlite3
 ```
+
 ### [Yarn](https://classic.yarnpkg.com/en/)
 Example installation instructions for Debian/Ubuntu:
 ```
@@ -25,11 +26,13 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update && sudo apt install yarn
 ```
+
 ### Rails
 Example installation instructions for Ubuntu:
 ```
 sudo apt install ruby-railties
 ```
+
 ### Bundler
 Use bundler to install Ruby gems. Install bundler:
 ```
@@ -43,6 +46,24 @@ You may need to edit the version of Ruby in your Gemfile. Execute something like
 ```
 nano Gemfile
 ```
+
+
+## Start web server (access voting platform on current device only)
+Run the command below:
+```
+rails server
+```
+Go to [http://localhost:3000](http://localhost:3000) to access the voting platform.
+
+
+## Start web server (access voting platform on current device and on other devices on the local network)
+Run the command below:
+```
+rails server -b 0.0.0.0 
+```
+Go to [http://localhost:3000](http://localhost:3000) to access the voting platform on the device that is running the server.
+
+Go to [IP Address of the device running the server]:3000 to access the voting platform from another device on the local network.
 
 
 ## Generate new generator 
@@ -61,21 +82,17 @@ Drop database, load schema and seed the data from db/seeds.rb: see this [link](h
 rake db:reset
 ```
 
-## Start web server (access voting platform on current device only)
-Run the command below:
-```
-rails server
-```
-Go to [http://localhost:3000](http://localhost:3000) to access the voting platform.
 
-## Start web server (access voting platform on current device and on other devices on the local network)
-Run the command below:
+## Run tests
+Test all the models using [RSpec](https://github.com/rspec/rspec-rails)
 ```
-rails server -b 0.0.0.0 
+bundle exec rspec spec/models --format documentation
 ```
-Go to [http://localhost:3000](http://localhost:3000) to access the voting platform on the device that is running the server.
+Run integration tests:
+```
+rake test:integration TESTOPTS="-v"
+```
 
-Go to [IP Address of the device running the server]:3000 to access the voting platform from another device on the local network.
 
 ## Acknowledgements
 This project would not have been possible without Professor Feng Hao's guidance.
