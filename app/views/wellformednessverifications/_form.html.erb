@@ -1,13 +1,15 @@
 <%= form_with(model: wellformednessverification, local: true) do |form| %>
   <% if wellformednessverification.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(wellformednessverification.errors.count, "error") %> prevented well-formedness verification from being carried out:</h2>
-
-      <ul>
+    <div class="notification is-danger">
+      <div id="error_explanation">
+      <h2 class="subtitle"><%= pluralize(wellformednessverification.errors.count, "error") %> prevented well-formedness verification from being carried out:</h2>
+  
+        <ul>
         <% wellformednessverification.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
   <% end %>
 
