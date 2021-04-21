@@ -71,3 +71,6 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 4.0'
 end
+
+# For Entity-relationship diagram
+gem 'rails-erd', group: :development
