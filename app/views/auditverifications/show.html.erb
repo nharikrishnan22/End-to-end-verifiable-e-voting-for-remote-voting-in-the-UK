@@ -46,7 +46,6 @@
 <% g2 = group.new_point([@auditverification.g2_x.to_i,@auditverification.g2_y.to_i]) %>
 
 <% g1_ri = g1.multiply_by_scalar(@auditverification.ri.to_i) %>
-<% big_ri = g2.multiply_by_scalar(@auditverification.ri.to_i) %>
 <% value = 0 %>
 <% if @auditverification.vote == 0 %>
   <% value = group.infinity %>
