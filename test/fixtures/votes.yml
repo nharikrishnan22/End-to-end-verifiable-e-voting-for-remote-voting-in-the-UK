@@ -3,15 +3,21 @@
 one:
   big_ri: 1
   big_zi: 1
-  pwf: true
-  status:
+  status: "confirmed"
+  pwf_c_1: "27497"
+  pwf_c_2: "27497"
+  pwf_r_1: "27497"
+  pwf_r_2: "27497"
   user: "one"
   vote: 0
 
 two:
   big_ri: 1
   big_zi: 1
-  pwf: true
-  status:
+  status: "confirmed"
+  pwf_c_1: "27497"
+  pwf_c_2: "27497"
+  pwf_r_1: "27497"
+  pwf_r_2: "27497"
   user: "two"
   vote:
