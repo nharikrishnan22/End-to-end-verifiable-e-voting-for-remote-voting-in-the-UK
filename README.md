@@ -10,7 +10,7 @@ cd End-to-end-verifiable-e-voting-for-remote-voting-in-the-UK
 ```
 ruby -v
 ```
-This project uses Ruby 2.7.
+This project uses Ruby 2.7.0
 
 ## Install Dependencies
 ### SQLite3
