@@ -54,6 +54,11 @@ You may need to edit the version of Ruby in your Gemfile. Execute something like
 nano Gemfile
 ```
 
+## Setup/Clean up database 
+Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
+```
+rake db:reset
+```
 
 ## Start web server (access voting platform on current device only)
 Run the command below:
@@ -61,7 +66,6 @@ Run the command below:
 rails server
 ```
 Go to [http://localhost:3000](http://localhost:3000) to access the voting platform.
-
 
 ## Start web server (access voting platform on current device and on other devices on the local network)
 Run the command below:
@@ -82,14 +86,6 @@ ruby create_second_generator.rb
 ## Create new users
 Go to [http://localhost:3000/signup](http://localhost:3000/signup).
 
-
-## Setup/Clean up database 
-Drop database, load schema and seed the data from db/seeds.rb: see this [link](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
-```
-rake db:reset
-```
-
-
 ## Run tests
 Test all the models using [RSpec](https://github.com/rspec/rspec-rails):
 ```
@@ -99,7 +95,6 @@ Run integration tests:
 ```
 rake test:integration TESTOPTS="-v"
 ```
-
 
 ## Acknowledgements
 This project would not have been possible without Professor Feng Hao's guidance.
