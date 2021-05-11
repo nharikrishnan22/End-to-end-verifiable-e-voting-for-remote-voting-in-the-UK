@@ -19,6 +19,13 @@ Example installation instructions for Ubuntu:
 sudo apt install sqlite3
 ```
 
+### Node.js
+Example installation instructions for Ubuntu:
+```
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
 ### [Yarn](https://classic.yarnpkg.com/en/)
 Example installation instructions for Debian/Ubuntu:
 ```
