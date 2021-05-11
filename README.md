@@ -67,6 +67,11 @@ rails server
 ```
 Go to [http://localhost:3000](http://localhost:3000) to access the voting platform.
 
+Run the command below if there is a Webpacker::Manifest::MissingEntryError
+```
+rails webpacker:install
+```
+
 ## Start web server (access voting platform on current device and on other devices on the local network)
 Run the command below:
 ```
